@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
@@ -34,6 +35,38 @@
       font-family: 'Cormorant Garamond', serif;
     }
 
+    .lang-switcher {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .lang-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--gold);
+      background: #fff;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .lang-btn:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .lang-btn.active {
+      background: var(--gold);
+      color: #fff;
+    }
+
     .wrap {
       max-width: 720px;
       background: #fff;
@@ -43,10 +76,27 @@
     }
 
     .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 3rem;
       font-style: italic;
       color: var(--gold);
       margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .heart-icon {
+      display: inline-block;
+      width: 0.75em;
+      height: 0.75em;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
     }
 
     .ornament {
@@ -80,6 +130,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
+      transition: all 0.3s;
     }
 
     a:hover {
@@ -97,22 +148,111 @@
         transform: translateY(0);
       }
     }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
+
 </head>
 
 <body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="no">NO</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="bg">BG</button>
+  </div>
+
   <div class="wrap">
-    <div class="logo">S & K</div>
+    <div class="logo">
+      S
+      <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      K
+    </div>
     <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-    <h1>Tusen takk</h1>
+```
+<h1 data-text="thank-you">Tusen takk</h1>
 
-    <p>
-      Svaret deres er registrert.
-      Vi gleder oss til å dele mer informasjon om Bulgaria 2027 etter hvert som dato, sted og program blir klart.
-    </p>
+<p data-text="response-registered">
+  Svaret deres er registrert.
+  Vi gleder oss til å dele mer informasjon om Bulgaria 2027 etter hvert som dato, sted og program blir klart.
+</p>
 
-    <a href="/">Tilbake til siden</a>
+<a href="/" data-text="back-link">Tilbake til siden</a>
+```
+
   </div>
+
+  <script>
+    const translations = {
+      no: {
+        'thank-you': 'Tusen takk',
+        'response-registered': 'Svaret deres er registrert. Vi gleder oss til å dele mer informasjon om Bulgaria 2027 etter hvert som dato, sted og program blir klart.',
+        'back-link': 'Tilbake til siden'
+      },
+      en: {
+        'thank-you': 'Thank You',
+        'response-registered': 'Your response has been registered. We look forward to sharing more information about Bulgaria 2027 as the date, venue, and program are confirmed.',
+        'back-link': 'Back to home'
+      },
+      bg: {
+        'thank-you': 'Благодаря',
+        'response-registered': 'Вашият отговор е регистриран. Очаквам да споделим повече информация за България 2027, когато датата, място и програма бъдат потвърдени.',
+        'back-link': 'Обратно към начало'
+      }
+    };
+
+    let currentLang = 'no';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      // Update all elements with data-text attribute
+      document.querySelectorAll('[data-text]').forEach(element => {
+        const key = element.dataset.text;
+        if (translations[lang] && translations[lang][key]) {
+          if (element.tagName === 'A') {
+            element.textContent = translations[lang][key];
+          } else if (element.tagName === 'H1') {
+            element.textContent = translations[lang][key];
+          } else if (element.tagName === 'P') {
+            element.textContent = translations[lang][key];
+          }
+        }
+      });
+
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+      // Save preference
+      localStorage.setItem('preferred-language', lang);
+    }
+
+    // Language button event listeners
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        setLanguage(this.dataset.lang);
+      });
+    });
+
+    // Load saved preference or browser language
+    window.addEventListener('load', function() {
+      const saved = localStorage.getItem('preferred-language');
+      const browserLang = navigator.language.split('-')[0];
+      const lang = saved || (browserLang === 'en' || browserLang === 'bg' ? browserLang : 'no');
+      
+      if (['no', 'en', 'bg'].includes(lang)) {
+        setLanguage(lang);
+      }
+    });
+  </script>
+
 </body>
 </html>
