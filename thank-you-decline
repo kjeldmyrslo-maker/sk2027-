@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Takk for svar — Silje & Kjeld</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold: #B08D57;
+      --gold-light: #D4B896;
+      --deep: #2C2420;
+      --stone-light: #8C8480;
+      --ivory-dark: #F7F4F0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--ivory-dark);
+      color: var(--deep);
+      padding: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .lang-switcher {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .lang-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--gold);
+      background: #fff;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .lang-btn:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .lang-btn.active {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .wrap {
+      max-width: 720px;
+      background: #fff;
+      border: 1px solid var(--gold-light);
+      padding: 4rem 2rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .heart-icon {
+      display: inline-block;
+      width: 0.75em;
+      height: 0.75em;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+    }
+
+    .ornament {
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      margin: 1rem 0;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 9vw, 4.5rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .subline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--stone-light);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 1rem 2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    a:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="no">NO</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="bg">BG</button>
+  </div>
+
+  <div class="wrap">
+    <div class="logo">
+      S
+      <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      K
+    </div>
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+```
+<h1 data-text="title">Takk for svar</h1>
+
+<p class="subline" data-text="subline">Du blir savnet</p>
+
+<p data-text="message">
+  Det er synd du ikke kan være med oss til Svartehavet,
+  men vi forstår. Du er i tankene våre den store dagen –
+  og vi skåler en ekstra gang for deg fra Bulgaria.
+</p>
+
+<a href="/" data-text="back-link">Tilbake til siden</a>
+```
+
+  </div>
+
+  <script>
+    const translations = {
+      no: {
+        'title': 'Takk for svar',
+        'subline': 'Du blir savnet',
+        'message': 'Det er synd du ikke kan være med oss til Svartehavet, men vi forstår. Du er i tankene våre den store dagen – og vi skåler en ekstra gang for deg fra Bulgaria.',
+        'back-link': 'Tilbake til siden'
+      },
+      en: {
+        'title': 'Thank You',
+        'subline': 'You will be missed',
+        'message': "We're sad you can't join us on the Black Sea coast, but we understand. You'll be in our thoughts on the big day – and we'll raise an extra glass to you from Bulgaria.",
+        'back-link': 'Back to home'
+      },
+      bg: {
+        'title': 'Благодарим за отговора',
+        'subline': 'Ще ни липсваш',
+        'message': 'Жалко, че не можеш да дойдеш с нас на Черно море, но разбираме. Ще бъдеш в мислите ни в големия ден – и ще вдигнем една допълнителна чаша за теб от България.',
+        'back-link': 'Обратно към начало'
+      }
+    };
+
+    let currentLang = 'no';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-text]').forEach(element => {
+        const key = element.dataset.text;
+        if (translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+      localStorage.setItem('preferred-language', lang);
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        setLanguage(this.dataset.lang);
+      });
+    });
+
+    window.addEventListener('load', function() {
+      const saved = localStorage.getItem('preferred-language');
+      const browserLang = navigator.language.split('-')[0];
+      const lang = saved || (browserLang === 'en' || browserLang === 'bg' ? browserLang : 'no');
+
+      if (['no', 'en', 'bg'].includes(lang)) {
+        setLanguage(lang);
+      }
+    });
+  </script>
+
+</body>
+</html>
