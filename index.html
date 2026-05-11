@@ -54,7 +54,7 @@
       position: fixed;
       inset: 0;
       z-index: 99999;
-      background: #ffffff;
+      background: #0F0B08;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -89,8 +89,9 @@
     .pw-input {
       width: 240px;
       padding: 1rem;
-      border: 1px solid var(--gold-light);
-      background: #fff;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold-light);
       font-family: 'EB Garamond', serif;
       font-size: 1rem;
       text-align: center;
@@ -98,8 +99,12 @@
       transition: border-color 0.2s;
     }
 
+    .pw-input::placeholder {
+      color: rgba(212, 184, 150, 0.5);
+    }
+
     .pw-input:focus {
-      border-color: var(--gold);
+      border-color: var(--gold-light);
     }
 
     #pw-enter {
@@ -121,11 +126,11 @@
 
     #pw-enter:hover {
       background: var(--gold);
-      color: #fff;
+      color: #0F0B08;
     }
 
     .pw-error {
-      color: #9b4b4b;
+      color: #C97B7B;
       font-size: 0.9rem;
       opacity: 0;
       transition: opacity 0.3s;
@@ -1462,69 +1467,67 @@
 
   <section id="aktiviteter">
     <div class="section-wrap">
-      <p class="section-eyebrow" data-text="activities-eyebrow">For de som vil bli lenger</p>
-      <h2 class="section-title" data-text="activities-title">Aktiviteter og opplevelser</h2>
+      <p class="section-eyebrow" data-text="activities-eyebrow">Eksklusive opplevelser</p>
+      <h2 class="section-title" data-text="activities-title">Det beste av området</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
 
 ```
   <p class="section-sub" data-text="activities-intro">
-    Området har mye å by på for de som vil bli lenger.
+    Noen håndplukkede høydepunkter med fokus på tradisjon, kultur og fine opplevelser.
   </p>
 
   <div class="activities-grid">
     <div class="activity-card">
-      <p class="activity-label" data-text="act-golf-label">Golf</p>
-      <h3 data-text="act-golf-title">Mesterskapsbaner</h3>
-      <p data-text="act-golf-desc">
-        Black Sea Rama har Bulgarias første mesterskapsbane, designet av Gary Player.
-        Lighthouse Golf og Thracian Cliffs ligger også i nærheten.
+      <p class="activity-label" data-text="exp-wine-label">Varna · Vinsmaking</p>
+      <h3 data-text="exp-wine-title">Privat bulgarsk vinsmaking</h3>
+      <p data-text="exp-wine-desc">
+        Smak Bulgarias beste viner med en personlig sommelier i Varna.
       </p>
     </div>
 
     <div class="activity-card">
-      <p class="activity-label" data-text="act-beach-label">Strand & Sjø</p>
-      <h3 data-text="act-beach-title">Avslappet strandliv</h3>
-      <p data-text="act-beach-desc">
-        Lange sandstrender og klart vann i Albena, Balchik og Varna –
-        med vannsport for de som vil mer.
+      <p class="activity-label" data-text="exp-cruise-label">Balchik · Sjøen</p>
+      <h3 data-text="exp-cruise-title">Svartehavscruise</h3>
+      <p data-text="exp-cruise-desc">
+        4-timers seiltur fra Balchik med lunsj og drikke om bord.
       </p>
     </div>
 
     <div class="activity-card">
-      <p class="activity-label" data-text="act-shopping-label">Shopping</p>
-      <h3 data-text="act-shopping-title">Grand Mall Varna</h3>
-      <p data-text="act-shopping-desc">
-        Bulgarias største kjøpesenter med 200+ butikker, restauranter og kino.
-        Åpent daglig 10–21.
+      <p class="activity-label" data-text="exp-palace-label">Balchik · Kultur</p>
+      <h3 data-text="exp-palace-title">Palasset & Kaliakra</h3>
+      <p data-text="exp-palace-desc">
+        Dronning Marias palass, botanisk hage og den dramatiske kappen Kaliakra.
       </p>
     </div>
 
     <div class="activity-card">
-      <p class="activity-label" data-text="act-culture-label">Kultur & Natur</p>
-      <h3 data-text="act-culture-title">Severdigheter</h3>
-      <p data-text="act-culture-desc">
-        Slottet i Balchik, Kaliakra-kappen, Aladzha-klosteret
-        og Varnas gamle bydel.
+      <p class="activity-label" data-text="exp-monastery-label">Varna · Historie</p>
+      <h3 data-text="exp-monastery-title">Aladzha-klosteret</h3>
+      <p data-text="exp-monastery-desc">
+        Middelalder-kloster hugget inn i fjellveggen, med guidet omvisning.
       </p>
     </div>
 
     <div class="activity-card">
-      <p class="activity-label" data-text="act-food-label">Mat & Drikke</p>
-      <h3 data-text="act-food-title">Bulgarsk gjestfrihet</h3>
-      <p data-text="act-food-desc">
-        Lokale spesialiteter som shopska-salat, banitsa og fersk fisk.
-        Koselige tavernaer med havutsikt.
+      <p class="activity-label" data-text="exp-stones-label">Varna · Natur</p>
+      <h3 data-text="exp-stones-title">Steinskogen ved solnedgang</h3>
+      <p data-text="exp-stones-desc">
+        Mystisk steinformasjon i magisk kveldslys – en uforglemmelig opplevelse.
       </p>
     </div>
 
     <div class="activity-card">
-      <p class="activity-label" data-text="act-spa-label">Spa & Velvære</p>
-      <h3 data-text="act-spa-title">Tid for å lade opp</h3>
-      <p data-text="act-spa-desc">
-        Mange resorter tilbyr spa, basseng og massasje –
-        perfekt for å koble av.
+      <p class="activity-label" data-text="exp-folk-label">Tradisjon · Kveld</p>
+      <h3 data-text="exp-folk-title">Bulgarsk folkeaften</h3>
+      <p data-text="exp-folk-desc">
+        Tradisjonell folkemusikk, dans og lokal mat i autentisk atmosfære.
       </p>
     </div>
+  </div>
+
+  <div style="text-align:center;">
+    <a class="tripadvisor-link" href="https://www.getyourguide.com/varna-l1116/" target="_blank" rel="noopener" data-text="getyourguide-link">Utforsk flere på GetYourGuide →</a>
   </div>
 </div>
 ```
@@ -1857,27 +1860,28 @@
         'venue-reception-title': 'EVENTUM-salen',
         'venue-reception-desc': 'Et stort, lyst festlokale med utsikt over hav og golfbane.',
         'venue-link-text': 'Besøk Black Sea Rama →',
-        'activities-eyebrow': 'For de som vil bli lenger',
-        'activities-title': 'Aktiviteter og opplevelser',
-        'activities-intro': 'Området har mye å by på for de som vil bli lenger.',
-        'act-golf-label': 'Golf',
-        'act-golf-title': 'Mesterskapsbaner',
-        'act-golf-desc': 'Black Sea Rama har Bulgarias første mesterskapsbane, designet av Gary Player. Lighthouse Golf og Thracian Cliffs ligger også i nærheten.',
-        'act-beach-label': 'Strand & Sjø',
-        'act-beach-title': 'Avslappet strandliv',
-        'act-beach-desc': 'Lange sandstrender og klart vann i Albena, Balchik og Varna – med vannsport for de som vil mer.',
-        'act-shopping-label': 'Shopping',
-        'act-shopping-title': 'Grand Mall Varna',
-        'act-shopping-desc': 'Bulgarias største kjøpesenter med 200+ butikker, restauranter og kino. Åpent daglig 10–21.',
-        'act-culture-label': 'Kultur & Natur',
-        'act-culture-title': 'Severdigheter',
-        'act-culture-desc': 'Slottet i Balchik, Kaliakra-kappen, Aladzha-klosteret og Varnas gamle bydel.',
-        'act-food-label': 'Mat & Drikke',
-        'act-food-title': 'Bulgarsk gjestfrihet',
-        'act-food-desc': 'Lokale spesialiteter som shopska-salat, banitsa og fersk fisk. Koselige tavernaer med havutsikt.',
-        'act-spa-label': 'Spa & Velvære',
-        'act-spa-title': 'Tid for å lade opp',
-        'act-spa-desc': 'Mange resorter tilbyr spa, basseng og massasje – perfekt for å koble av.',
+        'activities-eyebrow': 'Eksklusive opplevelser',
+        'activities-title': 'Det beste av området',
+        'activities-intro': 'Noen håndplukkede høydepunkter med fokus på tradisjon, kultur og fine opplevelser.',
+        'exp-wine-label': 'Varna · Vinsmaking',
+        'exp-wine-title': 'Privat bulgarsk vinsmaking',
+        'exp-wine-desc': 'Smak Bulgarias beste viner med en personlig sommelier i Varna.',
+        'exp-cruise-label': 'Balchik · Sjøen',
+        'exp-cruise-title': 'Svartehavscruise',
+        'exp-cruise-desc': '4-timers seiltur fra Balchik med lunsj og drikke om bord.',
+        'exp-palace-label': 'Balchik · Kultur',
+        'exp-palace-title': 'Palasset & Kaliakra',
+        'exp-palace-desc': 'Dronning Marias palass, botanisk hage og den dramatiske kappen Kaliakra.',
+        'exp-monastery-label': 'Varna · Historie',
+        'exp-monastery-title': 'Aladzha-klosteret',
+        'exp-monastery-desc': 'Middelalder-kloster hugget inn i fjellveggen, med guidet omvisning.',
+        'exp-stones-label': 'Varna · Natur',
+        'exp-stones-title': 'Steinskogen ved solnedgang',
+        'exp-stones-desc': 'Mystisk steinformasjon i magisk kveldslys – en uforglemmelig opplevelse.',
+        'exp-folk-label': 'Tradisjon · Kveld',
+        'exp-folk-title': 'Bulgarsk folkeaften',
+        'exp-folk-desc': 'Tradisjonell folkemusikk, dans og lokal mat i autentisk atmosfære.',
+        'getyourguide-link': 'Utforsk flere på GetYourGuide →',
         'map-eyebrow': 'Området',
         'map-title': 'På kartet',
         'map-intro': 'Klikk på markørene for å se hva som er hvor.',
@@ -1991,27 +1995,28 @@
         'venue-reception-title': 'The EVENTUM Hall',
         'venue-reception-desc': 'A spacious, bright reception hall overlooking the sea and the golf course.',
         'venue-link-text': 'Visit Black Sea Rama →',
-        'activities-eyebrow': 'For those staying longer',
-        'activities-title': 'Activities and experiences',
-        'activities-intro': 'The area has plenty to offer for those who want to stay longer.',
-        'act-golf-label': 'Golf',
-        'act-golf-title': 'Championship courses',
-        'act-golf-desc': 'Black Sea Rama hosts Bulgaria\'s first championship course, designed by Gary Player. Lighthouse Golf and Thracian Cliffs are also nearby.',
-        'act-beach-label': 'Beach & Sea',
-        'act-beach-title': 'Relaxed beach life',
-        'act-beach-desc': 'Long sandy beaches and clear waters in Albena, Balchik, and Varna – with water sports for those who want more.',
-        'act-shopping-label': 'Shopping',
-        'act-shopping-title': 'Grand Mall Varna',
-        'act-shopping-desc': 'Bulgaria\'s largest shopping centre with 200+ stores, restaurants, and a cinema. Open daily 10am–9pm.',
-        'act-culture-label': 'Culture & Nature',
-        'act-culture-title': 'Sights to see',
-        'act-culture-desc': 'The palace in Balchik, Cape Kaliakra, the Aladzha Monastery, and Varna\'s old town.',
-        'act-food-label': 'Food & Drink',
-        'act-food-title': 'Bulgarian hospitality',
-        'act-food-desc': 'Local specialties like shopska salad, banitsa, and fresh fish. Cozy taverns with sea views.',
-        'act-spa-label': 'Spa & Wellness',
-        'act-spa-title': 'Time to recharge',
-        'act-spa-desc': 'Many resorts offer spa, pools, and massage – perfect for unwinding.',
+        'activities-eyebrow': 'Curated experiences',
+        'activities-title': 'The best of the area',
+        'activities-intro': 'A handful of selected highlights with focus on tradition, culture, and fine experiences.',
+        'exp-wine-label': 'Varna · Wine tasting',
+        'exp-wine-title': 'Private Bulgarian wine tasting',
+        'exp-wine-desc': "Taste Bulgaria's finest wines with a personal sommelier in Varna.",
+        'exp-cruise-label': 'Balchik · The sea',
+        'exp-cruise-title': 'Black Sea cruise',
+        'exp-cruise-desc': '4-hour sailing trip from Balchik with lunch and drinks on board.',
+        'exp-palace-label': 'Balchik · Culture',
+        'exp-palace-title': 'Palace & Kaliakra',
+        'exp-palace-desc': "Queen Marie's Palace, botanical garden, and the dramatic Cape Kaliakra.",
+        'exp-monastery-label': 'Varna · History',
+        'exp-monastery-title': 'Aladzha Monastery',
+        'exp-monastery-desc': 'Medieval monastery carved into the cliff face, with a guided tour.',
+        'exp-stones-label': 'Varna · Nature',
+        'exp-stones-title': 'Stone Forest at sunset',
+        'exp-stones-desc': 'Mysterious stone formations in magical evening light – an unforgettable experience.',
+        'exp-folk-label': 'Tradition · Evening',
+        'exp-folk-title': 'Bulgarian folk evening',
+        'exp-folk-desc': 'Traditional folk music, dance, and local food in an authentic atmosphere.',
+        'getyourguide-link': 'Explore more on GetYourGuide →',
         'map-eyebrow': 'The area',
         'map-title': 'On the map',
         'map-intro': 'Click the markers to see what is where.',
@@ -2125,27 +2130,28 @@
         'venue-reception-title': 'Зала EVENTUM',
         'venue-reception-desc': 'Просторна и светла зала с гледка към морето и голф терена.',
         'venue-link-text': 'Посетете Black Sea Rama →',
-        'activities-eyebrow': 'За тези, които искат да останат по-дълго',
-        'activities-title': 'Дейности и преживявания',
-        'activities-intro': 'Районът има много за предлагане за тези, които искат да останат по-дълго.',
-        'act-golf-label': 'Голф',
-        'act-golf-title': 'Шампионатни голф терени',
-        'act-golf-desc': 'Black Sea Rama разполага с първия шампионатен голф терен в България, проектиран от Гари Плеър. Lighthouse Golf и Thracian Cliffs също са в близост.',
-        'act-beach-label': 'Плаж и море',
-        'act-beach-title': 'Спокоен плажен живот',
-        'act-beach-desc': 'Дълги пясъчни плажове и чисти води в Албена, Балчик и Варна – с водни спортове за тези, които искат повече.',
-        'act-shopping-label': 'Шопинг',
-        'act-shopping-title': 'Гранд Мол Варна',
-        'act-shopping-desc': 'Най-големият търговски център в България с 200+ магазина, ресторанти и кино. Отворено всеки ден 10:00–21:00.',
-        'act-culture-label': 'Култура и природа',
-        'act-culture-title': 'Забележителности',
-        'act-culture-desc': 'Дворецът в Балчик, нос Калиакра, Аладжа манастир и старият град на Варна.',
-        'act-food-label': 'Храна и напитки',
-        'act-food-title': 'Българско гостоприемство',
-        'act-food-desc': 'Местни специалитети като шопска салата, баница и прясна риба. Уютни кръчми с гледка към морето.',
-        'act-spa-label': 'Спа и уелнес',
-        'act-spa-title': 'Време за презареждане',
-        'act-spa-desc': 'Много курорти предлагат спа, басейни и масаж – перфектно за релаксация.',
+        'activities-eyebrow': 'Селективни изживявания',
+        'activities-title': 'Най-доброто от района',
+        'activities-intro': 'Няколко избрани акценти с фокус върху традицията, културата и изтънчените изживявания.',
+        'exp-wine-label': 'Варна · Дегустация',
+        'exp-wine-title': 'Частна българска винена дегустация',
+        'exp-wine-desc': 'Опитайте най-добрите вина на България с личен сомелиер във Варна.',
+        'exp-cruise-label': 'Балчик · Морето',
+        'exp-cruise-title': 'Черноморски круиз',
+        'exp-cruise-desc': '4-часов плавателен излет от Балчик с обяд и напитки на борда.',
+        'exp-palace-label': 'Балчик · Култура',
+        'exp-palace-title': 'Дворецът & Калиакра',
+        'exp-palace-desc': 'Дворецът на кралица Мария, ботаническата градина и драматичният нос Калиакра.',
+        'exp-monastery-label': 'Варна · История',
+        'exp-monastery-title': 'Аладжа манастир',
+        'exp-monastery-desc': 'Средновековен манастир, издълбан в скалата, с екскурзовод.',
+        'exp-stones-label': 'Варна · Природа',
+        'exp-stones-title': 'Побитите камъни на залез',
+        'exp-stones-desc': 'Мистична скална формация в магическа вечерна светлина – незабравимо изживяване.',
+        'exp-folk-label': 'Традиция · Вечер',
+        'exp-folk-title': 'Българска фолклорна вечер',
+        'exp-folk-desc': 'Традиционна фолклорна музика, танци и местна храна в автентична атмосфера.',
+        'getyourguide-link': 'Открийте повече в GetYourGuide →',
         'map-eyebrow': 'Района',
         'map-title': 'На картата',
         'map-intro': 'Кликнете върху маркерите, за да видите какво къде се намира.',
@@ -2285,15 +2291,18 @@
       var status = document.querySelector('input[name="deltar"]:checked');
       var attendingFields = document.getElementById('attending-fields');
       var notAttendingFields = document.getElementById('not-attending-fields');
+      var form = document.getElementById('rsvp-form');
 
       if (!status) return;
 
       if (status.value === 'ja') {
         attendingFields.style.display = 'block';
         notAttendingFields.style.display = 'none';
+        form.action = '/thank-you.html';
       } else {
         attendingFields.style.display = 'none';
         notAttendingFields.style.display = 'block';
+        form.action = '/thank-you-decline.html';
       }
     }
   </script>
@@ -2391,6 +2400,17 @@
           no: 'Middelalder-kloster hugget inn i fjell',
           en: 'Medieval monastery carved into the cliff',
           bg: 'Средновековен манастир в скалата'
+        }
+      },
+      {
+        coords: [43.2253, 27.7042],
+        type: 'sight',
+        name: 'Steinskogen',
+        labels: { no: 'Naturfenomen', en: 'Natural wonder', bg: 'Природно чудо' },
+        descs: {
+          no: 'Mystiske steinformasjoner – magisk ved solnedgang',
+          en: 'Mysterious stone formations – magical at sunset',
+          bg: 'Мистични скални формации – магически на залез'
         }
       },
       {
