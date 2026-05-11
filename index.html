@@ -616,6 +616,54 @@
       background: var(--gold-dark);
     }
 
+    /* ACTIVITIES SECTION */
+    #aktiviteter {
+      background: #fff;
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .activity-card {
+      padding: 2.2rem 1.8rem;
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+      border-top: 3px solid var(--gold);
+      transition: all 0.3s;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(176,141,87,0.15);
+    }
+
+    .activity-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .activity-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--deep);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .activity-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--stone-light);
+    }
+
     /* FOOTER */
     footer {
       background: var(--deep);
@@ -717,9 +765,9 @@
       <ul class="nav-links">
         <li><a href="#hjem" data-text="nav-home">Hjem</a></li>
         <li><a href="#innbydelse" data-text="nav-invitation">Invitasjon</a></li>
+        <li><a href="#venue" data-text="nav-venue">Stedet</a></li>
         <li><a href="#reise" data-text="nav-travel">Reise</a></li>
-        <li><a href="#omradet" data-text="nav-destination">Destinasjon</a></li>
-        <li><a href="#program" data-text="nav-program">Program</a></li>
+        <li><a href="#aktiviteter" data-text="nav-activities">Aktiviteter</a></li>
         <li><a href="#paamelding" data-text="nav-rsvp">Påmelding</a></li>
       </ul>
     </div>
@@ -731,7 +779,6 @@
     <div class="hero-texture"></div>
     <div class="hero-frame"></div>
 
-```
 <div class="hero-content">
   <p class="hero-pre" data-text="hero-pre">VI GLEDER OSS TIL Å INVITERE DEG TIL VÅRT BRYLLUP</p>
 
@@ -746,7 +793,6 @@
     </p>
   </div>
 </div>
-```
 
   </section>
 
@@ -778,7 +824,6 @@
 
   <span class="ornament" style="display:block;">✦ &nbsp; ✦ &nbsp; ✦</span>
 </div>
-```
 
   </section>
 
@@ -813,7 +858,6 @@
     </div>
   </div>
 </div>
-```
 
   </section>
 
@@ -848,8 +892,77 @@
     </div>
   </div>
 </div>
-```
 
+  </section>
+
+  <!-- AKTIVITETER -->
+
+  <section id="aktiviteter">
+    <div class="section-wrap">
+      <p class="section-eyebrow" data-text="activities-eyebrow">Gjør mer av det du liker</p>
+      <h2 class="section-title" data-text="activities-title">Aktiviteter og opplevelser</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+      <p class="section-sub" data-text="activities-intro">
+        Området tilbyr uendelig mye for både avslapping og eventyr – gjør dette til en lengre ferietur.
+      </p>
+
+      <div class="activities-grid">
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-golf-label">Golf</p>
+          <h3 data-text="act-golf-title">Mesterskapsbaner</h3>
+          <p data-text="act-golf-desc">
+            Black Sea Rama har Bulgarias første mesterskapsbane, designet av Gary Player.
+            Lighthouse Golf og Thracian Cliffs ligger også i nærheten.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-beach-label">Strand & Sjø</p>
+          <h3 data-text="act-beach-title">Avslappet strandliv</h3>
+          <p data-text="act-beach-desc">
+            Lange sandstrender og klart vann i Albena, Balchik og Varna –
+            med vannsport for de som vil mer.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-shopping-label">Shopping</p>
+          <h3 data-text="act-shopping-title">Grand Mall Varna</h3>
+          <p data-text="act-shopping-desc">
+            Bulgarias største kjøpesenter med 200+ butikker, restauranter og kino.
+            Åpent daglig 10–21.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-culture-label">Kultur & Natur</p>
+          <h3 data-text="act-culture-title">Severdigheter</h3>
+          <p data-text="act-culture-desc">
+            Slottet i Balchik, Kaliakra-kappen, Aladzha-klosteret
+            og Varnas gamle bydel.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-food-label">Mat & Drikke</p>
+          <h3 data-text="act-food-title">Bulgarsk gjestfrihet</h3>
+          <p data-text="act-food-desc">
+            Lokale spesialiteter som shopska-salat, banitsa og fersk fisk.
+            Koselige tavernaer med havutsikt.
+          </p>
+        </div>
+
+        <div class="activity-card">
+          <p class="activity-label" data-text="act-spa-label">Spa & Velvære</p>
+          <h3 data-text="act-spa-title">Tid for å lade opp</h3>
+          <p data-text="act-spa-desc">
+            Mange resorter tilbyr spa, basseng og massasje –
+            perfekt for å koble av.
+          </p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PROGRAM -->
@@ -882,7 +995,6 @@
     </div>
   </div>
 </div>
-```
 
   </section>
 
@@ -906,7 +1018,6 @@
     Kjeld · 2027
   </p>
 </div>
-```
 
   </section>
 
@@ -1002,7 +1113,6 @@
     </div>
   </form>
 </div>
-```
 
   </section>
 
@@ -1026,9 +1136,9 @@
         'wrong-password': 'Feil passord',
         'nav-home': 'Hjem',
         'nav-invitation': 'Invitasjon',
+        'nav-venue': 'Stedet',
         'nav-travel': 'Reise',
-        'nav-destination': 'Destinasjon',
-        'nav-program': 'Program',
+        'nav-activities': 'Aktiviteter',
         'nav-rsvp': 'Påmelding',
         'hero-pre': 'VI GLEDER OSS TIL Å INVITERE DEG TIL VÅRT BRYLLUP',
         'hero-location': 'Svartehavskysten, Bulgaria',
@@ -1086,7 +1196,28 @@
         'allergy-vegetarian': 'Vegetar',
         'form-message': 'MELDING TIL BRUDEPARET',
         'form-message-no': 'MELDING TIL BRUDEPARET',
-        'form-submit': 'Send svar'
+        'form-submit': 'Send svar',
+        'activities-eyebrow': 'Gjør mer av det du liker',
+        'activities-title': 'Aktiviteter og opplevelser',
+        'activities-intro': 'Området tilbyr uendelig mye for både avslapping og eventyr – gjør dette til en lengre ferietur.',
+        'act-golf-label': 'Golf',
+        'act-golf-title': 'Mesterskapsbaner',
+        'act-golf-desc': 'Black Sea Rama har Bulgarias første mesterskapsbane, designet av Gary Player. Lighthouse Golf og Thracian Cliffs ligger også i nærheten.',
+        'act-beach-label': 'Strand & Sjø',
+        'act-beach-title': 'Avslappet strandliv',
+        'act-beach-desc': 'Lange sandstrender og klart vann i Albena, Balchik og Varna – med vannsport for de som vil mer.',
+        'act-shopping-label': 'Shopping',
+        'act-shopping-title': 'Grand Mall Varna',
+        'act-shopping-desc': 'Bulgarias største kjøpesenter med 200+ butikker, restauranter og kino. Åpent daglig 10–21.',
+        'act-culture-label': 'Kultur & Natur',
+        'act-culture-title': 'Severdigheter',
+        'act-culture-desc': 'Slottet i Balchik, Kaliakra-kappen, Aladzha-klosteret og Varnas gamle bydel.',
+        'act-food-label': 'Mat & Drikke',
+        'act-food-title': 'Bulgarsk gjestfrihet',
+        'act-food-desc': 'Lokale spesialiteter som shopska-salat, banitsa og fersk fisk. Koselige tavernaer med havutsikt.',
+        'act-spa-label': 'Spa & Velvære',
+        'act-spa-title': 'Tid for å lade opp',
+        'act-spa-desc': 'Mange resorter tilbyr spa, basseng og massasje – perfekt for å koble av.'
       },
       en: {
         'welcome': 'Welcome',
@@ -1094,9 +1225,9 @@
         'wrong-password': 'Wrong password',
         'nav-home': 'Home',
         'nav-invitation': 'Invitation',
+        'nav-venue': 'The Venue',
         'nav-travel': 'Travel',
-        'nav-destination': 'Destination',
-        'nav-program': 'Program',
+        'nav-activities': 'Activities',
         'nav-rsvp': 'RSVP',
         'hero-pre': 'WE ARE DELIGHTED TO INVITE YOU TO OUR WEDDING',
         'hero-location': 'Black Sea Coast, Bulgaria',
@@ -1154,7 +1285,28 @@
         'allergy-vegetarian': 'Vegetarian',
         'form-message': 'MESSAGE FOR THE COUPLE',
         'form-message-no': 'MESSAGE FOR THE COUPLE',
-        'form-submit': 'Submit'
+        'form-submit': 'Submit',
+        'activities-eyebrow': 'Do more of what you love',
+        'activities-title': 'Activities and experiences',
+        'activities-intro': 'The area offers endless possibilities for both relaxation and adventure – make this an extended holiday.',
+        'act-golf-label': 'Golf',
+        'act-golf-title': 'Championship courses',
+        'act-golf-desc': 'Black Sea Rama hosts Bulgaria\'s first championship course, designed by Gary Player. Lighthouse Golf and Thracian Cliffs are also nearby.',
+        'act-beach-label': 'Beach & Sea',
+        'act-beach-title': 'Relaxed beach life',
+        'act-beach-desc': 'Long sandy beaches and clear waters in Albena, Balchik, and Varna – with water sports for those who want more.',
+        'act-shopping-label': 'Shopping',
+        'act-shopping-title': 'Grand Mall Varna',
+        'act-shopping-desc': 'Bulgaria\'s largest shopping centre with 200+ stores, restaurants, and a cinema. Open daily 10am–9pm.',
+        'act-culture-label': 'Culture & Nature',
+        'act-culture-title': 'Sights to see',
+        'act-culture-desc': 'The palace in Balchik, Cape Kaliakra, the Aladzha Monastery, and Varna\'s old town.',
+        'act-food-label': 'Food & Drink',
+        'act-food-title': 'Bulgarian hospitality',
+        'act-food-desc': 'Local specialties like shopska salad, banitsa, and fresh fish. Cozy taverns with sea views.',
+        'act-spa-label': 'Spa & Wellness',
+        'act-spa-title': 'Time to recharge',
+        'act-spa-desc': 'Many resorts offer spa, pools, and massage – perfect for unwinding.'
       },
       bg: {
         'welcome': 'Добре дошли',
@@ -1162,9 +1314,9 @@
         'wrong-password': 'Грешна парола',
         'nav-home': 'Начало',
         'nav-invitation': 'Покана',
+        'nav-venue': 'Място на събора',
         'nav-travel': 'Пътуване',
-        'nav-destination': 'Дестинация',
-        'nav-program': 'Програма',
+        'nav-activities': 'Дейности',
         'nav-rsvp': 'RSVP',
         'hero-pre': 'РАДВАМЕ СЕ ДА ВИ ПОКАНИМ НА НАШАТА СВАТБА',
         'hero-location': 'Черноморския бряг, България',
@@ -1222,7 +1374,28 @@
         'allergy-vegetarian': 'Вегетарианец',
         'form-message': 'СЪОБЩЕНИЕ ЗА ДВОЙКАТА',
         'form-message-no': 'СЪОБЩЕНИЕ ЗА ДВОЙКАТА',
-        'form-submit': 'Изпращане'
+        'form-submit': 'Изпращане',
+        'activities-eyebrow': 'Направете повече от това, което обичате',
+        'activities-title': 'Дейности и преживявания',
+        'activities-intro': 'Районът предлага безкрайни възможности както за релаксация, така и за приключение – направете това удължена ваканция.',
+        'act-golf-label': 'Голф',
+        'act-golf-title': 'Шампионатни голф терени',
+        'act-golf-desc': 'Black Sea Rama разполага с първия шампионатен голф терен в България, проектиран от Гари Плеър. Lighthouse Golf и Thracian Cliffs също са в близост.',
+        'act-beach-label': 'Плаж и море',
+        'act-beach-title': 'Спокоен плажен живот',
+        'act-beach-desc': 'Дълги пясъчни плажове и чисти води в Албена, Балчик и Варна – с водни спортове за тези, които искат повече.',
+        'act-shopping-label': 'Шопинг',
+        'act-shopping-title': 'Гранд Мол Варна',
+        'act-shopping-desc': 'Най-големият търговски център в България с 200+ магазина, ресторанти и кино. Отворено всеки ден 10:00–21:00.',
+        'act-culture-label': 'Култура и природа',
+        'act-culture-title': 'Забележителности',
+        'act-culture-desc': 'Дворецът в Балчик, нос Калиакра, Аладжа манастир и старият град на Варна.',
+        'act-food-label': 'Храна и напитки',
+        'act-food-title': 'Българско гостоприемство',
+        'act-food-desc': 'Местни специалитети като шопска салата, баница и прясна риба. Уютни кръчми с гледка към морето.',
+        'act-spa-label': 'Спа и уелнес',
+        'act-spa-title': 'Време за презареждане',
+        'act-spa-desc': 'Много курорти предлагат спа, басейни и масаж – перфектно за релаксация.'
       }
     };
 
