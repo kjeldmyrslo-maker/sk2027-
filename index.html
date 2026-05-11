@@ -25,6 +25,7 @@
       --stone-light: #8C8480;
       --deep: #2C2420;
       --rose: #9C7B6B;
+      --terracotta: #B07854;
     }
 
     * {
@@ -859,6 +860,10 @@
       background: var(--rose);
     }
 
+    .sk-marker-restaurant .pin {
+      background: var(--terracotta);
+    }
+
     /* Legend */
     .map-legend {
       display: flex;
@@ -892,6 +897,81 @@
     .legend-venue { background: var(--gold-dark); }
     .legend-town { background: var(--gold); }
     .legend-sight { background: var(--rose); }
+    .legend-restaurant { background: var(--terracotta); }
+
+    /* RESTAURANTS SECTION */
+    #restauranter {
+      background: #fff;
+    }
+
+    .restaurants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .restaurant-card {
+      padding: 2rem 1.6rem;
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+      border-top: 3px solid var(--terracotta);
+      transition: all 0.3s;
+    }
+
+    .restaurant-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(176,120,84,0.18);
+    }
+
+    .restaurant-type {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .restaurant-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .restaurant-location {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--stone-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .restaurant-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--stone);
+    }
+
+    .tripadvisor-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.9rem 2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .tripadvisor-link:hover {
+      background: var(--gold);
+      color: #fff;
+    }
 
     .transition-text {
       font-family: 'Cormorant Garamond', serif;
@@ -1479,7 +1559,62 @@
       <span class="legend-marker legend-sight"></span>
       <span data-text="legend-sight">Severdigheter</span>
     </div>
+    <div class="legend-item">
+      <span class="legend-marker legend-restaurant"></span>
+      <span data-text="legend-restaurant">Restauranter</span>
+    </div>
   </div>
+</div>
+```
+
+  </section>
+
+  <!-- RESTAURANTER -->
+
+  <section id="restauranter">
+    <div class="section-wrap" style="text-align:center;">
+      <p class="section-eyebrow" data-text="rest-eyebrow">Spisesteder</p>
+      <h2 class="section-title" data-text="rest-title">Anbefalte restauranter</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+
+```
+  <p class="section-sub" data-text="rest-intro">
+    Noen favoritter for fersk fisk, lokal mat og spektakulær sjøutsikt.
+  </p>
+
+  <div class="restaurants-grid" style="text-align:left;">
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-1-type">Skjellfarm & restaurant</p>
+      <h3>Dalboka</h3>
+      <p class="restaurant-location" data-text="rest-1-loc">Kaliakra-bukten</p>
+      <p data-text="rest-1-desc">
+        Berømt skjellfarm med restaurant rett ved bukten.
+        Ferske skjell og sjømat med spektakulær utsikt – en må-oppleve i området.
+      </p>
+    </div>
+
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-2-type">Fiskerestaurant</p>
+      <h3>Captain Cook</h3>
+      <p class="restaurant-location" data-text="rest-2-loc">Golden Sands</p>
+      <p data-text="rest-2-desc">
+        Ved bryggen i Golden Sands. Black Sea-fisk, sjømat
+        og utsikt mot småbåter og marina.
+      </p>
+    </div>
+
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-3-type">Sjøpromenade</p>
+      <h3 data-text="rest-3-title">Tavernaer i Balchik</h3>
+      <p class="restaurant-location" data-text="rest-3-loc">Balchik sjøfront</p>
+      <p data-text="rest-3-desc">
+        Koselige lokale tavernaer langs sjøpromenaden.
+        Fersk fisk, bulgarske retter og rolig stemning.
+      </p>
+    </div>
+  </div>
+
+  <a class="tripadvisor-link" href="https://www.tripadvisor.com/Restaurants-g616071-c33-Varna_Province.html" target="_blank" rel="noopener" data-text="tripadvisor-link">Flere tips på TripAdvisor →</a>
 </div>
 ```
 
@@ -1749,6 +1884,21 @@
         'legend-venue': 'Vårt sted',
         'legend-town': 'Byer & resorter',
         'legend-sight': 'Severdigheter',
+        'legend-restaurant': 'Restauranter',
+        'rest-eyebrow': 'Spisesteder',
+        'rest-title': 'Anbefalte restauranter',
+        'rest-intro': 'Noen favoritter for fersk fisk, lokal mat og spektakulær sjøutsikt.',
+        'rest-1-type': 'Skjellfarm & restaurant',
+        'rest-1-loc': 'Kaliakra-bukten',
+        'rest-1-desc': 'Berømt skjellfarm med restaurant rett ved bukten. Ferske skjell og sjømat med spektakulær utsikt – en må-oppleve i området.',
+        'rest-2-type': 'Fiskerestaurant',
+        'rest-2-loc': 'Golden Sands',
+        'rest-2-desc': 'Ved bryggen i Golden Sands. Black Sea-fisk, sjømat og utsikt mot småbåter og marina.',
+        'rest-3-type': 'Sjøpromenade',
+        'rest-3-title': 'Tavernaer i Balchik',
+        'rest-3-loc': 'Balchik sjøfront',
+        'rest-3-desc': 'Koselige lokale tavernaer langs sjøpromenaden. Fersk fisk, bulgarske retter og rolig stemning.',
+        'tripadvisor-link': 'Flere tips på TripAdvisor →',
         'rsvp-eyebrow': 'Påmelding',
         'rsvp-title': 'Meld deg på',
         'rsvp-text': 'Fyll inn skjemaet nedenfor. Vi er takknemlige om du melder fra så snart du vet om du kan komme.',
@@ -1868,6 +2018,21 @@
         'legend-venue': 'Our venue',
         'legend-town': 'Towns & resorts',
         'legend-sight': 'Sights',
+        'legend-restaurant': 'Restaurants',
+        'rest-eyebrow': 'Where to eat',
+        'rest-title': 'Recommended restaurants',
+        'rest-intro': 'A few favourites for fresh fish, local food and spectacular sea views.',
+        'rest-1-type': 'Mussel farm & restaurant',
+        'rest-1-loc': 'Kaliakra Bay',
+        'rest-1-desc': 'Famous mussel farm with a restaurant right by the bay. Fresh mussels and seafood with spectacular views – a must-do in the area.',
+        'rest-2-type': 'Fish restaurant',
+        'rest-2-loc': 'Golden Sands',
+        'rest-2-desc': 'By the pier in Golden Sands. Black Sea fish, seafood and views over boats and the marina.',
+        'rest-3-type': 'Seafront promenade',
+        'rest-3-title': 'Taverns in Balchik',
+        'rest-3-loc': 'Balchik seafront',
+        'rest-3-desc': 'Cozy local taverns along the seafront promenade. Fresh fish, Bulgarian dishes and a calm atmosphere.',
+        'tripadvisor-link': 'More tips on TripAdvisor →',
         'rsvp-eyebrow': 'RSVP',
         'rsvp-title': 'Please let us know',
         'rsvp-text': 'Fill out the form below. We are grateful if you let us know as soon as you know if you can come.',
@@ -1987,6 +2152,21 @@
         'legend-venue': 'Нашето място',
         'legend-town': 'Градове и курорти',
         'legend-sight': 'Забележителности',
+        'legend-restaurant': 'Ресторанти',
+        'rest-eyebrow': 'Места за хранене',
+        'rest-title': 'Препоръчани ресторанти',
+        'rest-intro': 'Няколко любими места за прясна риба, местна храна и зашеметяващи морски гледки.',
+        'rest-1-type': 'Ферма за миди и ресторант',
+        'rest-1-loc': 'Залив Калиакра',
+        'rest-1-desc': 'Известна ферма за миди с ресторант до залива. Пресни миди и морски дарове с впечатляваща гледка – задължително в района.',
+        'rest-2-type': 'Рибен ресторант',
+        'rest-2-loc': 'Златни пясъци',
+        'rest-2-desc': 'До пристана на Златни пясъци. Риба от Черно море, морски дарове и гледка към лодки и марината.',
+        'rest-3-type': 'Крайбрежна алея',
+        'rest-3-title': 'Кръчми в Балчик',
+        'rest-3-loc': 'Брегът на Балчик',
+        'rest-3-desc': 'Уютни местни кръчми по крайбрежната алея. Прясна риба, български ястия и спокойна атмосфера.',
+        'tripadvisor-link': 'Още съвети в TripAdvisor →',
         'rsvp-eyebrow': 'RSVP',
         'rsvp-title': 'Моля, уведомете ни',
         'rsvp-text': 'Попълнете формуляра по-долу. Благодарим на вас, ако ни уведомите веднага щом знаете дали можете да дойдете.',
@@ -2170,6 +2350,17 @@
         }
       },
       {
+        coords: [43.2885, 28.0405],
+        type: 'town',
+        name: 'Golden Sands',
+        labels: { no: 'Strand & resort', en: 'Beach & resort', bg: 'Плаж и курорт' },
+        descs: {
+          no: 'Berømt sandstrand med restauranter og strandliv',
+          en: 'Famous sandy beach with restaurants and beach life',
+          bg: 'Известен пясъчен плаж с ресторанти и плажен живот'
+        }
+      },
+      {
         coords: [43.2321, 27.8253],
         type: 'sight',
         name: 'Varna lufthavn',
@@ -2212,6 +2403,28 @@
           en: "Bulgaria's largest shopping centre",
           bg: 'Най-големият търговски център в България'
         }
+      },
+      {
+        coords: [43.3958, 28.4486],
+        type: 'restaurant',
+        name: 'Dalboka',
+        labels: { no: 'Skjellrestaurant', en: 'Mussel restaurant', bg: 'Ресторант с миди' },
+        descs: {
+          no: 'Berømt skjellfarm ved Kaliakra-bukten – ferskt fra havet',
+          en: 'Famous mussel farm by Kaliakra Bay – fresh from the sea',
+          bg: 'Известна ферма за миди в Калиакра – прясно от морето'
+        }
+      },
+      {
+        coords: [43.2906, 28.0405],
+        type: 'restaurant',
+        name: 'Captain Cook',
+        labels: { no: 'Fiskerestaurant', en: 'Fish restaurant', bg: 'Рибен ресторант' },
+        descs: {
+          no: 'Fersk fisk og sjømat ved bryggen i Golden Sands',
+          en: 'Fresh fish and seafood by the pier in Golden Sands',
+          bg: 'Прясна риба и морски дарове на пристана в Златни пясъци'
+        }
       }
     ];
 
@@ -2236,9 +2449,10 @@
       }).addTo(weddingMap);
 
       const iconConfig = {
-        venue:  { size: [36, 44], anchor: [18, 44], symbol: '♡' },
-        town:   { size: [26, 32], anchor: [13, 32], symbol: '' },
-        sight:  { size: [22, 28], anchor: [11, 28], symbol: '' }
+        venue:      { size: [36, 44], anchor: [18, 44], symbol: '♡' },
+        town:       { size: [26, 32], anchor: [13, 32], symbol: '' },
+        sight:      { size: [22, 28], anchor: [11, 28], symbol: '' },
+        restaurant: { size: [22, 28], anchor: [11, 28], symbol: '' }
       };
 
       placeData.forEach(p => {
