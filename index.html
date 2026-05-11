@@ -1,13 +1,19 @@
 <!DOCTYPE html>
+
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Silje & Kjeld — Bulgaria 2027</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin="" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <style>
     :root {
       --gold: #B08D57;
@@ -21,23 +27,29 @@
       --rose: #9C7B6B;
       --terracotta: #B07854;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     html {
       scroll-behavior: smooth;
     }
+
     body {
       font-family: 'EB Garamond', serif;
       background: var(--ivory);
       color: var(--stone);
       overflow-x: hidden;
     }
+
     body.locked {
       overflow: hidden;
     }
+
+    /* PASSWORD SCREEN */
     #pw-screen {
       position: fixed;
       inset: 0;
@@ -51,10 +63,12 @@
       padding: 2rem;
       transition: opacity 0.6s ease;
     }
+
     #pw-screen.hidden {
       opacity: 0;
       pointer-events: none;
     }
+
     .pw-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 4.2rem;
@@ -63,6 +77,15 @@
       color: var(--gold);
       letter-spacing: 0.04em;
     }
+
+    .pw-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
     .pw-input {
       width: 240px;
       padding: 1rem;
@@ -73,10 +96,17 @@
       font-size: 1rem;
       text-align: center;
       outline: none;
+      transition: border-color 0.2s;
     }
+
     .pw-input::placeholder {
       color: rgba(212, 184, 150, 0.5);
     }
+
+    .pw-input:focus {
+      border-color: var(--gold-light);
+    }
+
     #pw-enter {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.6rem;
@@ -91,28 +121,35 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.25s;
+      line-height: 1;
     }
+
     #pw-enter:hover {
       background: var(--gold);
       color: #0F0B08;
     }
+
     .pw-error {
       color: #C97B7B;
       font-size: 0.9rem;
       opacity: 0;
       transition: opacity 0.3s;
     }
+
     .pw-error.show {
       opacity: 1;
     }
+
+    /* LANGUAGE SWITCHER */
     .lang-switcher {
       position: fixed;
       top: 1.5rem;
       right: 1.5rem;
       display: flex;
       gap: 0.3rem;
-      z-index: 300;
+      z-index: 150;
     }
+
     .lang-btn {
       padding: 0.5rem 0.9rem;
       border: 1px solid var(--gold);
@@ -123,12 +160,20 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       cursor: pointer;
+      transition: all 0.3s;
     }
-    .lang-btn.active,
+
     .lang-btn:hover {
       background: var(--gold);
       color: #fff;
     }
+
+    .lang-btn.active {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* NAV */
     nav {
       position: fixed;
       top: 0;
@@ -139,6 +184,7 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(176,141,87,0.18);
     }
+
     .nav-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -146,8 +192,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
     }
+
     .nav-logo {
       display: flex;
       flex-direction: column;
@@ -156,6 +202,7 @@
       color: var(--gold-dark);
       text-decoration: none;
     }
+
     .nav-logo-main {
       display: inline-flex;
       align-items: center;
@@ -165,6 +212,7 @@
       font-style: italic;
       letter-spacing: 0.05em;
     }
+
     .nav-logo-year {
       font-family: 'Cinzel', serif;
       font-size: 0.5rem;
@@ -172,6 +220,7 @@
       margin-top: 0.35rem;
       color: var(--gold);
     }
+
     .heart-icon {
       display: inline-block;
       width: 0.85em;
@@ -182,12 +231,55 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       vertical-align: middle;
+      margin-bottom: 0.05em;
     }
+
+    /* MONOGRAM (large logo for invitation area) */
+    .monogram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2.5rem 0 1.5rem;
+      color: var(--gold);
+    }
+
+    .monogram-letters {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(4rem, 16vw, 7.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .monogram .heart-icon {
+      width: 0.7em;
+      height: 0.7em;
+      stroke-width: 1.1;
+    }
+
+    .monogram-diamond {
+      color: var(--gold);
+      font-size: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .monogram-year {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.45em;
+      color: var(--gold);
+      margin-top: 0.8rem;
+    }
+
     .nav-links {
       display: flex;
       gap: 1.4rem;
       list-style: none;
     }
+
     .nav-links a {
       font-family: 'Cinzel', serif;
       font-size: 0.6rem;
@@ -196,19 +288,12 @@
       color: var(--stone);
       text-decoration: none;
     }
+
     .nav-links a:hover {
       color: var(--gold);
     }
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-size: 1.4rem;
-      padding: 0.35rem 0.7rem;
-      cursor: pointer;
-      line-height: 1;
-    }
+
+    /* HERO */
     #hjem {
       min-height: 100vh;
       display: flex;
@@ -220,6 +305,7 @@
       background: #fff;
       overflow: hidden;
     }
+
     .hero-texture {
       position: absolute;
       inset: 0;
@@ -228,58 +314,28 @@
         radial-gradient(ellipse at 80% 70%, rgba(176,141,87,0.06) 0%, transparent 55%),
         radial-gradient(ellipse at 50% 100%, rgba(247,244,240,0.9) 0%, transparent 60%);
     }
+
     .hero-frame {
       position: absolute;
       inset: 2rem;
       border: 1px solid rgba(176,141,87,0.25);
       pointer-events: none;
     }
+
     .hero-frame::before {
       content: '';
       position: absolute;
       inset: 6px;
       border: 1px solid rgba(176,141,87,0.12);
     }
+
     .hero-content {
       position: relative;
       z-index: 1;
       max-width: 820px;
       width: 100%;
     }
-    .monogram {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 2.5rem 0 1.5rem;
-      color: var(--gold);
-    }
-    .monogram-letters {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4em;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: clamp(4rem, 16vw, 7.5rem);
-      line-height: 1;
-      letter-spacing: 0.02em;
-    }
-    .monogram .heart-icon {
-      width: 0.7em;
-      height: 0.7em;
-      stroke-width: 1.1;
-    }
-    .monogram-diamond {
-      color: var(--gold);
-      font-size: 0.6rem;
-      margin-top: 1rem;
-    }
-    .monogram-year {
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.45em;
-      color: var(--gold);
-      margin-top: 0.8rem;
-    }
+
     .hero-pre {
       font-family: 'Cinzel', serif;
       font-size: 0.66rem;
@@ -288,6 +344,7 @@
       color: var(--gold);
       margin-bottom: 2rem;
     }
+
     .hero-names {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -296,6 +353,7 @@
       color: var(--deep);
       letter-spacing: 0.02em;
     }
+
     .hero-location {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -303,9 +361,11 @@
       color: var(--stone-light);
       margin-top: 1.2rem;
     }
+
     .date-notice {
       display: inline-flex;
       align-items: center;
+      gap: 0.75rem;
       margin-top: 1.4rem;
       padding: 0.85rem 1.5rem;
       background: var(--ivory-dark);
@@ -313,6 +373,7 @@
       border-left: 3px solid var(--gold);
       max-width: 100%;
     }
+
     .date-notice-text {
       font-family: 'Cinzel', serif;
       font-size: 0.63rem;
@@ -322,21 +383,31 @@
       text-align: left;
       line-height: 1.6;
     }
+
     .date-notice-text strong {
       display: block;
       font-size: 0.72rem;
     }
+
+    .ornament {
+      color: var(--gold);
+      letter-spacing: 0.3em;
+    }
+
+    /* SECTIONS */
     section {
       padding: 6rem 1.5rem;
     }
+
     section:nth-child(even) {
       background: var(--ivory-dark);
     }
+
     .section-wrap {
       max-width: 920px;
       margin: 0 auto;
-      text-align: center;
     }
+
     .section-eyebrow {
       font-family: 'Cinzel', serif;
       font-size: 0.62rem;
@@ -345,6 +416,7 @@
       color: var(--gold);
       margin-bottom: 0.5rem;
     }
+
     .section-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.2rem, 8vw, 3.8rem);
@@ -352,16 +424,19 @@
       color: var(--deep);
       margin-bottom: 1.5rem;
     }
+
     .divider {
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 2rem 0;
     }
-    .divider-icon,
-    .ornament {
+
+    .divider-icon {
       color: var(--gold);
+      font-size: 1.2rem;
     }
+
     .section-sub {
       font-size: 1.1rem;
       line-height: 1.8;
@@ -370,59 +445,64 @@
       margin: 2rem auto;
       text-align: center;
     }
-    .cards,
-    .venue-features,
-    .activities-grid,
-    .restaurants-grid,
-    .balchik-gallery {
+
+    .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       margin-top: 3rem;
     }
-    .card,
-    .venue-feature,
-    .activity-card,
-    .restaurant-card,
-    .program-item,
-    .balchik-card {
+
+    .card {
+      padding: 2rem;
       background: #fff;
       border: 1px solid var(--gold-light);
       text-align: left;
     }
-    .card,
-    .venue-feature,
-    .activity-card,
-    .restaurant-card,
-    .program-item {
-      padding: 2rem;
-    }
-    .card h3,
-    .venue-feature h3,
-    .activity-card h3,
-    .restaurant-card h3,
-    .program-item h3,
-    .balchik-card-content h3 {
+
+    .card h3 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.4rem;
       margin-bottom: 1rem;
       color: var(--deep);
     }
-    .card p,
-    .venue-feature p,
-    .activity-card p,
-    .restaurant-card p,
-    .program-item p,
-    .balchik-card-content p {
+
+    .card p {
       font-size: 0.95rem;
       line-height: 1.7;
       color: var(--stone-light);
     }
-    #balchik,
-    #aktiviteter,
-    #restauranter {
+
+    .program-list {
+      display: grid;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .program-item {
+      padding: 2rem;
+      background: #fff;
+      border-left: 3px solid var(--gold);
+    }
+
+    .program-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--deep);
+    }
+
+    .program-item p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--stone-light);
+    }
+
+    /* BALCHIK SECTION */
+    #balchik {
       background: #fff;
     }
+
     .balchik-hero {
       width: 100%;
       max-width: 920px;
@@ -431,18 +511,110 @@
       border: 1px solid var(--gold-light);
       box-shadow: 0 8px 30px rgba(176,141,87,0.12);
     }
-    .balchik-hero img,
-    .balchik-card-image {
+
+    .balchik-hero img {
       width: 100%;
+      height: auto;
       display: block;
     }
+
+    .balchik-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .balchik-card {
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .balchik-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(176,141,87,0.18);
+    }
+
     .balchik-card-image {
+      width: 100%;
       height: 220px;
       object-fit: cover;
+      display: block;
     }
+
     .balchik-card-content {
       padding: 1.5rem;
     }
+
+    .balchik-card-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--deep);
+      margin-bottom: 0.6rem;
+    }
+
+    .balchik-card-content p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--stone-light);
+    }
+
+    .balchik-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+    }
+
+    .balchik-fact {
+      text-align: center;
+    }
+
+    .balchik-fact-icon {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .balchik-fact-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--deep);
+    }
+
+    @media (max-width: 768px) {
+      .balchik-card-image {
+        height: 180px;
+      }
+
+      .balchik-facts {
+        padding: 1.5rem;
+      }
+    }
+
+    /* VENUE SECTION - Black Sea Rama */
+    #venue {
+      background: var(--ivory-dark);
+      position: relative;
+    }
+
+    .venue-intro {
+      max-width: 720px;
+      margin: 2rem auto;
+      text-align: center;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--stone);
+    }
+
     .venue-name {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
@@ -452,28 +624,69 @@
       margin: 1rem 0 0.5rem;
       font-weight: 400;
     }
-    .venue-tagline,
-    .venue-feature-label,
-    .activity-label,
-    .restaurant-type {
+
+    .venue-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .venue-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .venue-feature {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--gold-light);
+      text-align: center;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .venue-feature:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(176,141,87,0.15);
+    }
+
+    .venue-feature-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .venue-feature-label {
       font-family: 'Cinzel', serif;
       font-size: 0.62rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-dark);
       margin-bottom: 1rem;
     }
-    .venue-intro,
-    .transition-text {
-      max-width: 720px;
-      margin: 2rem auto;
-      text-align: center;
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: var(--stone);
+
+    .venue-feature h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--deep);
+      margin-bottom: 1rem;
     }
-    .venue-link,
-    .tripadvisor-link {
+
+    .venue-feature p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--stone-light);
+    }
+
+    .venue-link {
       display: inline-block;
       margin-top: 3rem;
       padding: 1rem 2.4rem;
@@ -484,15 +697,67 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       text-decoration: none;
+      transition: all 0.3s;
     }
-    .venue-link:hover,
-    .tripadvisor-link:hover {
+
+    .venue-link:hover {
       background: var(--gold);
       color: #fff;
     }
+
+    /* ACTIVITIES SECTION */
+    #aktiviteter {
+      background: #fff;
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .activity-card {
+      padding: 2.2rem 1.8rem;
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+      border-top: 3px solid var(--gold);
+      transition: all 0.3s;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(176,141,87,0.15);
+    }
+
+    .activity-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .activity-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--deep);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .activity-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--stone-light);
+    }
+
+    /* MAP SECTION */
     #kart {
       background: var(--ivory-dark);
     }
+
     .map-container {
       width: 100%;
       height: 520px;
@@ -502,22 +767,47 @@
       position: relative;
       z-index: 1;
     }
+
+    @media (max-width: 768px) {
+      .map-container {
+        height: 420px;
+      }
+    }
+
+    /* Override Leaflet defaults to fit our aesthetic */
     .leaflet-container {
       font-family: 'EB Garamond', serif;
       background: #f7f4f0;
     }
+
     .leaflet-popup-content-wrapper {
       border-radius: 0;
       border: 1px solid var(--gold-light);
       background: #fff;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     }
+
+    .leaflet-popup-tip {
+      background: #fff;
+      border: 1px solid var(--gold-light);
+    }
+
+    .leaflet-popup-content {
+      margin: 1rem 1.2rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: var(--stone);
+    }
+
     .leaflet-popup-content .popup-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       color: var(--deep);
       display: block;
       margin-bottom: 0.2rem;
+      line-height: 1.2;
     }
+
     .leaflet-popup-content .popup-label {
       font-family: 'Cinzel', serif;
       font-size: 0.55rem;
@@ -527,14 +817,18 @@
       display: block;
       margin-bottom: 0.6rem;
     }
+
     .leaflet-popup-content .popup-desc {
       color: var(--stone-light);
       font-size: 0.9rem;
     }
+
+    /* Custom markers */
     .sk-marker {
       background: transparent !important;
       border: none !important;
     }
+
     .sk-marker .pin {
       width: 100%;
       height: 100%;
@@ -546,16 +840,36 @@
       align-items: center;
       justify-content: center;
     }
+
     .sk-marker .pin-inner {
       transform: rotate(45deg);
       color: #fff;
       font-family: 'Cormorant Garamond', serif;
       font-size: 14px;
+      line-height: 1;
     }
-    .sk-marker-venue .pin { background: var(--gold-dark); }
-    .sk-marker-town .pin { background: var(--gold); }
-    .sk-marker-sight .pin { background: var(--rose); }
-    .sk-marker-restaurant .pin { background: var(--terracotta); }
+
+    .sk-marker-venue .pin {
+      background: var(--gold-dark);
+    }
+
+    .sk-marker-venue .pin-inner {
+      font-size: 16px;
+    }
+
+    .sk-marker-town .pin {
+      background: var(--gold);
+    }
+
+    .sk-marker-sight .pin {
+      background: var(--rose);
+    }
+
+    .sk-marker-restaurant .pin {
+      background: var(--terracotta);
+    }
+
+    /* Legend */
     .map-legend {
       display: flex;
       flex-wrap: wrap;
@@ -568,11 +882,13 @@
       text-transform: uppercase;
       color: var(--stone);
     }
+
     .legend-item {
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
+
     .legend-marker {
       width: 14px;
       height: 18px;
@@ -582,22 +898,142 @@
       border: 1.5px solid #fff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
+
     .legend-venue { background: var(--gold-dark); }
     .legend-town { background: var(--gold); }
     .legend-sight { background: var(--rose); }
     .legend-restaurant { background: var(--terracotta); }
+
+    /* RESTAURANTS SECTION */
+    #restauranter {
+      background: #fff;
+    }
+
+    .restaurants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .restaurant-card {
+      padding: 2rem 1.6rem;
+      background: var(--ivory-dark);
+      border: 1px solid var(--gold-light);
+      border-top: 3px solid var(--terracotta);
+      transition: all 0.3s;
+    }
+
+    .restaurant-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(176,120,84,0.18);
+    }
+
+    .restaurant-type {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .restaurant-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .restaurant-location {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--stone-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .restaurant-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--stone);
+    }
+
+    .tripadvisor-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.9rem 2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .tripadvisor-link:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .transition-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-style: italic;
+      color: var(--deep);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+
+    /* FORM */
     .rsvp-step {
       max-width: 600px;
       margin: 0 auto;
     }
+
     .form-grid {
       display: grid;
       gap: 2rem;
     }
+
     .form-group {
       text-align: left;
     }
-    .form-person-label,
+
+    .form-person-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .form-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .form-radio input[type="radio"] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+    }
+
     .form-label {
       display: block;
       font-family: 'Cinzel', serif;
@@ -607,18 +1043,7 @@
       color: var(--gold);
       margin-bottom: 0.6rem;
     }
-    .form-radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .form-radio {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      cursor: pointer;
-      font-size: 1rem;
-    }
+
     .form-input {
       width: 100%;
       padding: 0.9rem;
@@ -628,17 +1053,25 @@
       font-size: 1rem;
       color: var(--stone);
       outline: none;
+      transition: border-color 0.2s;
     }
+
+    .form-input:focus {
+      border-color: var(--gold);
+    }
+
     .form-textarea {
       resize: vertical;
       min-height: 120px;
     }
+
     .allergy-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin: 1rem 0;
     }
+
     .allergy-item {
       display: flex;
       align-items: center;
@@ -646,9 +1079,16 @@
       cursor: pointer;
       font-size: 0.95rem;
     }
+
+    .allergy-item input[type="checkbox"] {
+      cursor: pointer;
+      accent-color: var(--gold);
+    }
+
     .allergy-item--wide {
       grid-column: 1 / -1;
     }
+
     .form-submit {
       width: 100%;
       padding: 1.1rem;
@@ -660,17 +1100,22 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       cursor: pointer;
+      transition: background 0.3s;
       margin-top: 1rem;
     }
+
     .form-submit:hover {
       background: var(--gold-dark);
     }
+
+    /* FOOTER */
     footer {
       background: var(--deep);
       color: #fff;
       text-align: center;
       padding: 3rem 1.5rem;
     }
+
     .footer-names {
       display: inline-flex;
       align-items: center;
@@ -681,49 +1126,51 @@
       margin-bottom: 1rem;
       letter-spacing: 0.05em;
     }
+
+    .footer-names .heart-icon {
+      color: var(--gold-light);
+      width: 0.7em;
+      height: 0.7em;
+      stroke-width: 1.3;
+    }
+
+    footer .ornament {
+      color: var(--gold-light);
+    }
+
     @media (max-width: 768px) {
       section {
         padding: 4rem 1rem;
       }
-      .lang-switcher {
-        top: 5.2rem;
-        right: 1rem;
+
+      .cards {
+        grid-template-columns: 1fr;
       }
-      .menu-toggle {
-        display: block;
-      }
+
       .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
+        gap: 0.8rem;
+      }
+
+      .lang-switcher {
+        top: 1rem;
         right: 1rem;
-        width: min(270px, calc(100vw - 2rem));
-        background: rgba(255, 255, 255, 0.98);
-        border: 1px solid var(--gold-light);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        padding: 1rem;
-        flex-direction: column;
-        gap: 0;
-        z-index: 250;
       }
-      .nav-links.open {
-        display: flex;
-      }
-      .nav-links a {
-        display: block;
-        padding: 0.85rem 0.4rem;
-        border-bottom: 1px solid rgba(176,141,87,0.18);
-      }
-      .nav-links li:last-child a {
-        border-bottom: none;
-      }
-      .map-container {
-        height: 420px;
+
+      .lang-btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.5rem;
       }
     }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
+
 </head>
-<body class="locked">
+
+<body>
+  <!-- PASSWORD SCREEN -->
   <div id="pw-screen">
     <div class="pw-logo">
       S
@@ -736,11 +1183,17 @@
     <button id="pw-enter" aria-label="Open" onclick="openWeddingSite()">→</button>
     <p id="pw-error" class="pw-error" data-text="wrong-password">Feil passord</p>
   </div>
+
+  <!-- LANGUAGE SWITCHER -->
+
   <div class="lang-switcher">
     <button class="lang-btn active" data-lang="no">NO</button>
     <button class="lang-btn" data-lang="en">EN</button>
     <button class="lang-btn" data-lang="bg">BG</button>
   </div>
+
+  <!-- NAV -->
+
   <nav>
     <div class="nav-inner">
       <a href="#hjem" class="nav-logo">
@@ -753,8 +1206,7 @@
         </span>
         <span class="nav-logo-year">2 0 2 7</span>
       </a>
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Åpne meny">☰</button>
-      <ul class="nav-links" id="navLinks">
+      <ul class="nav-links">
         <li><a href="#hjem" data-text="nav-home">Hjem</a></li>
         <li><a href="#innbydelse" data-text="nav-invitation">Invitasjon</a></li>
         <li><a href="#reise" data-text="nav-travel">Reise</a></li>
@@ -764,353 +1216,567 @@
       </ul>
     </div>
   </nav>
+
+  <!-- HERO -->
+
   <section id="hjem">
     <div class="hero-texture"></div>
     <div class="hero-frame"></div>
-    <div class="hero-content">
-      <div class="monogram" style="margin-top:0;margin-bottom:2.5rem;">
-        <span class="monogram-letters">
-          S
-          <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-          K
-        </span>
-        <span class="monogram-diamond">◆</span>
-        <span class="monogram-year">2 0 2 7</span>
-      </div>
-      <p class="hero-pre" data-text="hero-pre">VI GLEDER OSS TIL Å INVITERE DEG TIL VÅRT BRYLLUP</p>
-      <h1 class="hero-names">Silje & Kjeld</h1>
-      <p class="hero-location" data-text="hero-location">Svartehavskysten, Bulgaria</p>
-      <div class="date-notice">
-        <p class="date-notice-text">
-          <span data-text="date-label">DATO IKKE FASTSATT ENNÅ</span>
-          <strong data-text="date-info">SENSOMMER 2027 · NØYAKTIG DATO KOMMER</strong>
-        </p>
-      </div>
-    </div>
+
+```
+<div class="hero-content">
+  <div class="monogram" style="margin-top:0;margin-bottom:2.5rem;">
+    <span class="monogram-letters">
+      S
+      <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      K
+    </span>
+    <span class="monogram-diamond">◆</span>
+    <span class="monogram-year">2 0 2 7</span>
+  </div>
+
+  <p class="hero-pre" data-text="hero-pre">VI GLEDER OSS TIL Å INVITERE DEG TIL VÅRT BRYLLUP</p>
+
+  <h1 class="hero-names">Silje & Kjeld</h1>
+
+  <p class="hero-location" data-text="hero-location">Svartehavskysten, Bulgaria</p>
+
+  <div class="date-notice">
+    <p class="date-notice-text">
+      <span data-text="date-label">DATO IKKE FASTSATT ENNÅ</span>
+      <strong data-text="date-info">SENSOMMER 2027 · NØYAKTIG DATO KOMMER</strong>
+    </p>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- INVITASJON -->
+
   <section id="innbydelse">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="invitation-eyebrow">Invitasjon</p>
-      <div class="monogram">
-        <span class="monogram-letters">
-          S
-          <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-          K
-        </span>
-        <span class="monogram-diamond">◆</span>
-        <span class="monogram-year">2 0 2 7</span>
-      </div>
-      <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="invitation-text">
-        Vi gleder oss til å samle familie og venner ved Svartehavet.
-        Mer informasjon om dato, sted, reise og program sendes så snart det er avklart.
-      </p>
-      <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦</span>
-    </div>
+
+```
+  <div class="monogram">
+    <span class="monogram-letters">
+      S
+      <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      K
+    </span>
+    <span class="monogram-diamond">◆</span>
+    <span class="monogram-year">2 0 2 7</span>
+  </div>
+
+  <div class="divider"><span class="divider-icon">✦</span></div>
+
+  <p class="section-sub" data-text="invitation-text">
+    Vi gleder oss til å samle familie og venner ved Svartehavet.
+    Mer informasjon om dato, sted, reise og program sendes så snart det er avklart.
+  </p>
+
+  <span class="ornament" style="display:block;">✦ &nbsp; ✦ &nbsp; ✦</span>
+</div>
+```
+
   </section>
+
+  <!-- REISE -->
+
   <section id="reise">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="travel-eyebrow">Praktisk informasjon</p>
       <h2 class="section-title" data-text="travel-title">Reise og opphold</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="travel-text">
-        Vi arbeider med å innhente informasjon fra hotell og lokale samarbeidspartnere.
-        Målet er å gjøre reisen enkel og oversiktlig for alle gjester.
-      </p>
-      <div class="cards">
-        <div class="card">
-          <h3 data-text="travel-airport">Flyplass</h3>
-          <p data-text="travel-airport-desc">Nærmeste større flyplass vil trolig være Varna. Mer informasjon om anbefalte reiseruter kommer.</p>
-        </div>
-        <div class="card">
-          <h3 data-text="travel-hotel">Hotell</h3>
-          <p data-text="travel-hotel-desc">Vi undersøker hotellalternativer ved kysten, inkludert Balchik, Albena og Varna-området.</p>
-        </div>
-        <div class="card">
-          <h3 data-text="travel-transport">Transport</h3>
-          <p data-text="travel-transport-desc">Vi ser på praktiske løsninger for transport mellom flyplass, hotell og bryllupssted.</p>
-        </div>
-      </div>
+
+```
+  <p class="section-sub" data-text="travel-text">
+    Vi arbeider med å innhente informasjon fra hotell og lokale samarbeidspartnere.
+    Målet er å gjøre reisen enkel og oversiktlig for alle gjester.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3 data-text="travel-airport">Flyplass</h3>
+      <p data-text="travel-airport-desc">Nærmeste større flyplass vil trolig være Varna. Mer informasjon om anbefalte reiseruter kommer.</p>
     </div>
+
+    <div class="card">
+      <h3 data-text="travel-hotel">Hotell</h3>
+      <p data-text="travel-hotel-desc">Vi undersøker hotellalternativer ved kysten, inkludert Balchik, Albena og Varna-området.</p>
+    </div>
+
+    <div class="card">
+      <h3 data-text="travel-transport">Transport</h3>
+      <p data-text="travel-transport-desc">Vi ser på praktiske løsninger for transport mellom flyplass, hotell og bryllupssted.</p>
+    </div>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- OMRÅDET -->
+
   <section id="omradet">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="destination-eyebrow">Destinasjon</p>
       <h2 class="section-title" data-text="destination-title">Svartehavskysten i Bulgaria</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="destination-text">
-        Vi ønsker å samle familie og venner ved vakre Svartehavskysten i Bulgaria,
-        omgitt av sjø, varme sommerkvelder og avslappet strandliv.
-      </p>
-      <div class="cards">
-        <div class="card">
-          <h3 data-text="destination-bulgaria">Bulgaria</h3>
-          <p data-text="destination-bulgaria-desc">Bulgaria byr på varm gjestfrihet, fantastisk mat, lange strender og vakre omgivelser langs Svartehavet.</p>
-        </div>
-        <div class="card">
-          <h3 data-text="destination-albena">Albena</h3>
-          <p data-text="destination-albena-desc">Albena er et rolig og familievennlig område med lange strender, hyggelige restauranter og gode hotellmuligheter.</p>
-        </div>
-        <div class="card">
-          <h3 data-text="destination-balchik">Balchik</h3>
-          <p data-text="destination-balchik-desc">Balchik er en sjarmerende kystby kjent for sin vakre sjøpromenade, hyggelige restauranter og rolige atmosfære.</p>
-        </div>
-      </div>
+
+```
+  <p class="section-sub" data-text="destination-text">
+    Vi ønsker å samle familie og venner ved vakre Svartehavskysten i Bulgaria,
+    omgitt av sjø, varme sommerkvelder og avslappet strandliv.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3 data-text="destination-bulgaria">Bulgaria</h3>
+      <p data-text="destination-bulgaria-desc">Bulgaria byr på varm gjestfrihet, fantastisk mat, lange strender og vakre omgivelser langs Svartehavet.</p>
     </div>
+
+    <div class="card">
+      <h3 data-text="destination-albena">Albena</h3>
+      <p data-text="destination-albena-desc">Albena er et rolig og familievennlig område med lange strender, hyggelige restauranter og gode hotellmuligheter.</p>
+    </div>
+
+    <div class="card">
+      <h3 data-text="destination-balchik">Balchik</h3>
+      <p data-text="destination-balchik-desc">Balchik er en sjarmerende kystby kjent for sin vakre sjøpromenade, hyggelige restauranter og rolige atmosfære.</p>
+    </div>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- BALCHIK -->
+
   <section id="balchik">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="balchik-eyebrow">Vår destinasjon</p>
       <h2 class="section-title" data-text="balchik-title">Balchik</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <div class="balchik-hero">
-        <img src="images/balchik-panorama.webp" alt="Balchik panorama ved solnedgang" loading="lazy" />
-      </div>
-      <p class="section-sub" data-text="balchik-intro">
-        Sjarmerende historisk by med hvitkalkede hus, dramatisk kystlinje
-        og rolig atmosfære. Kun 40 km fra Varna.
-      </p>
-      <div class="balchik-gallery">
-        <div class="balchik-card">
-          <img class="balchik-card-image" src="images/balchik-palace.jpg" alt="Dronning Marias palass" loading="lazy" />
-          <div class="balchik-card-content">
-            <h3 data-text="balchik-palace-title">Dronning Marias palass</h3>
-            <p data-text="balchik-palace-desc">Romantisk slott med en av Sør-Øst-Europas vakreste botaniske hager.</p>
-          </div>
-        </div>
-        <div class="balchik-card">
-          <img class="balchik-card-image" src="images/balchik-pier.jpg" alt="Brygge med hvite klipper" loading="lazy" />
-          <div class="balchik-card-content">
-            <h3 data-text="balchik-pier-title">Den hvite kysten</h3>
-            <p data-text="balchik-pier-desc">Hvitkalkede hus i kalkstein-klippene, med koselig sjøpromenade.</p>
-          </div>
-        </div>
-        <div class="balchik-card">
-          <img class="balchik-card-image" src="images/balchik-beach.png" alt="Strand med strå-parasoller" loading="lazy" />
-          <div class="balchik-card-content">
-            <h3 data-text="balchik-beach-title">Stranden og sjøen</h3>
-            <p data-text="balchik-beach-desc">Sandstrender, krystallklart vann og spektakulære solnedganger.</p>
-          </div>
-        </div>
+
+```
+  <div class="balchik-hero">
+    <img src="images/balchik-panorama.webp" alt="Balchik panorama ved solnedgang" loading="lazy" />
+  </div>
+
+  <p class="section-sub" data-text="balchik-intro">
+    Sjarmerende historisk by med hvitkalkede hus, dramatisk kystlinje
+    og rolig atmosfære. Kun 40 km fra Varna.
+  </p>
+
+  <div class="balchik-gallery">
+    <div class="balchik-card">
+      <img class="balchik-card-image" src="images/balchik-palace.jpg" alt="Dronning Marias palass" loading="lazy" />
+      <div class="balchik-card-content">
+        <h3 data-text="balchik-palace-title">Dronning Marias palass</h3>
+        <p data-text="balchik-palace-desc">
+          Romantisk slott med en av Sør-Øst-Europas vakreste botaniske hager.
+        </p>
       </div>
     </div>
+
+    <div class="balchik-card">
+      <img class="balchik-card-image" src="images/balchik-pier.jpg" alt="Brygge med hvite klipper" loading="lazy" />
+      <div class="balchik-card-content">
+        <h3 data-text="balchik-pier-title">Den hvite kysten</h3>
+        <p data-text="balchik-pier-desc">
+          Hvitkalkede hus i kalkstein-klippene, med koselig sjøpromenade.
+        </p>
+      </div>
+    </div>
+
+    <div class="balchik-card">
+      <img class="balchik-card-image" src="images/balchik-beach.png" alt="Strand med strå-parasoller" loading="lazy" />
+      <div class="balchik-card-content">
+        <h3 data-text="balchik-beach-title">Stranden og sjøen</h3>
+        <p data-text="balchik-beach-desc">
+          Sandstrender, krystallklart vann og spektakulære solnedganger.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- VENUE - Black Sea Rama -->
+
   <section id="venue">
-    <div class="section-wrap">
+    <div class="section-wrap" style="text-align:center;">
       <p class="section-eyebrow" data-text="venue-eyebrow">Vielsen og festen</p>
       <h2 class="section-title" data-text="venue-title">Vårt sted</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="venue-tagline" data-text="venue-tagline">Hvor vi sier ja</p>
-      <h3 class="venue-name">Black Sea Rama</h3>
-      <p class="venue-tagline" data-text="venue-subtitle">Golf & Villas Resort</p>
-      <p class="venue-intro" data-text="venue-intro">
-        Black Sea Rama ligger 7 km fra Balchik, 200 meter over havet.
-        Et eksklusivt resort med spektakulær utsikt og Bulgarias første mesterskapsgolfbane.
+
+```
+  <p class="venue-tagline" data-text="venue-tagline">Hvor vi sier ja</p>
+  <h3 class="venue-name">Black Sea Rama</h3>
+  <p class="venue-tagline" data-text="venue-subtitle" style="margin-top:0;">Golf & Villas Resort</p>
+
+  <p class="venue-intro" data-text="venue-intro">
+    Black Sea Rama ligger 7 km fra Balchik, 200 meter over havet.
+    Et eksklusivt resort med spektakulær utsikt og Bulgarias første mesterskapsgolfbane.
+  </p>
+
+  <div class="venue-features">
+    <div class="venue-feature">
+      <div class="venue-feature-icon">✦</div>
+      <p class="venue-feature-label" data-text="venue-location-label">Beliggenhet</p>
+      <h3 data-text="venue-location-title">200 m over Svartehavet</h3>
+      <p data-text="venue-location-desc">
+        Luksusvillaer, fire restauranter og endeløs utsikt mot Kaliakra-kappen.
       </p>
-      <div class="venue-features">
-        <div class="venue-feature">
-          <p class="venue-feature-label" data-text="venue-location-label">Beliggenhet</p>
-          <h3 data-text="venue-location-title">200 m over Svartehavet</h3>
-          <p data-text="venue-location-desc">Luksusvillaer, fire restauranter og endeløs utsikt mot Kaliakra-kappen.</p>
-        </div>
-        <div class="venue-feature">
-          <p class="venue-feature-label" data-text="venue-ceremony-label">Vielsen</p>
-          <h3 data-text="venue-ceremony-title">Utendørs amfiteater</h3>
-          <p data-text="venue-ceremony-desc">Vi sier "ja" i resortens vakre amfiteater – med havet og himmelen som ramme.</p>
-        </div>
-        <div class="venue-feature">
-          <p class="venue-feature-label" data-text="venue-reception-label">Festen</p>
-          <h3 data-text="venue-reception-title">EVENTUM-salen</h3>
-          <p data-text="venue-reception-desc">Et stort, lyst festlokale med utsikt over hav og golfbane.</p>
-        </div>
-      </div>
-      <a class="venue-link" href="https://www.blacksearama.com" target="_blank" rel="noopener" data-text="venue-link-text">Besøk Black Sea Rama →</a>
     </div>
+
+    <div class="venue-feature">
+      <div class="venue-feature-icon">♡</div>
+      <p class="venue-feature-label" data-text="venue-ceremony-label">Vielsen</p>
+      <h3 data-text="venue-ceremony-title">Utendørs amfiteater</h3>
+      <p data-text="venue-ceremony-desc">
+        Vi sier "ja" i resortens vakre amfiteater – med havet og himmelen som ramme.
+      </p>
+    </div>
+
+    <div class="venue-feature">
+      <div class="venue-feature-icon">✧</div>
+      <p class="venue-feature-label" data-text="venue-reception-label">Festen</p>
+      <h3 data-text="venue-reception-title">EVENTUM-salen</h3>
+      <p data-text="venue-reception-desc">
+        Et stort, lyst festlokale med utsikt over hav og golfbane.
+      </p>
+    </div>
+  </div>
+
+  <a class="venue-link" href="https://www.blacksearama.com" target="_blank" rel="noopener" data-text="venue-link-text">Besøk Black Sea Rama →</a>
+</div>
+```
+
   </section>
+
+  <!-- AKTIVITETER -->
+
   <section id="aktiviteter">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="activities-eyebrow">Eksklusive opplevelser</p>
       <h2 class="section-title" data-text="activities-title">Det beste av området</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="activities-intro">
-        Noen håndplukkede høydepunkter med fokus på tradisjon, kultur og fine opplevelser.
+
+```
+  <p class="section-sub" data-text="activities-intro">
+    Noen håndplukkede høydepunkter med fokus på tradisjon, kultur og fine opplevelser.
+  </p>
+
+  <div class="activities-grid">
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-wine-label">Varna · Vinsmaking</p>
+      <h3 data-text="exp-wine-title">Privat bulgarsk vinsmaking</h3>
+      <p data-text="exp-wine-desc">
+        Smak Bulgarias beste viner med en personlig sommelier i Varna.
       </p>
-      <div class="activities-grid">
-        <div class="activity-card">
-          <p class="activity-label" data-text="exp-wine-label">Varna · Vinsmaking</p>
-          <h3 data-text="exp-wine-title">Privat bulgarsk vinsmaking</h3>
-          <p data-text="exp-wine-desc">Smak Bulgarias beste viner med en personlig sommelier i Varna.</p>
-        </div>
-        <div class="activity-card">
-          <p class="activity-label" data-text="exp-cruise-label">Balchik · Sjøen</p>
-          <h3 data-text="exp-cruise-title">Svartehavscruise</h3>
-          <p data-text="exp-cruise-desc">4-timers seiltur fra Balchik med lunsj og drikke om bord.</p>
-        </div>
-        <div class="activity-card">
-          <p class="activity-label" data-text="exp-palace-label">Balchik · Kultur</p>
-          <h3 data-text="exp-palace-title">Palasset & Kaliakra</h3>
-          <p data-text="exp-palace-desc">Dronning Marias palass, botanisk hage og den dramatiske kappen Kaliakra.</p>
-        </div>
-      </div>
-      <a class="tripadvisor-link" href="https://www.getyourguide.com/varna-l1116/" target="_blank" rel="noopener" data-text="getyourguide-link">Utforsk flere på GetYourGuide →</a>
     </div>
+
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-cruise-label">Balchik · Sjøen</p>
+      <h3 data-text="exp-cruise-title">Svartehavscruise</h3>
+      <p data-text="exp-cruise-desc">
+        4-timers seiltur fra Balchik med lunsj og drikke om bord.
+      </p>
+    </div>
+
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-palace-label">Balchik · Kultur</p>
+      <h3 data-text="exp-palace-title">Palasset & Kaliakra</h3>
+      <p data-text="exp-palace-desc">
+        Dronning Marias palass, botanisk hage og den dramatiske kappen Kaliakra.
+      </p>
+    </div>
+
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-monastery-label">Varna · Historie</p>
+      <h3 data-text="exp-monastery-title">Aladzha-klosteret</h3>
+      <p data-text="exp-monastery-desc">
+        Middelalder-kloster hugget inn i fjellveggen, med guidet omvisning.
+      </p>
+    </div>
+
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-stones-label">Varna · Natur</p>
+      <h3 data-text="exp-stones-title">Steinskogen ved solnedgang</h3>
+      <p data-text="exp-stones-desc">
+        Mystisk steinformasjon i magisk kveldslys – en uforglemmelig opplevelse.
+      </p>
+    </div>
+
+    <div class="activity-card">
+      <p class="activity-label" data-text="exp-folk-label">Tradisjon · Kveld</p>
+      <h3 data-text="exp-folk-title">Bulgarsk folkeaften</h3>
+      <p data-text="exp-folk-desc">
+        Tradisjonell folkemusikk, dans og lokal mat i autentisk atmosfære.
+      </p>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <a class="tripadvisor-link" href="https://www.getyourguide.com/varna-l1116/" target="_blank" rel="noopener" data-text="getyourguide-link">Utforsk flere på GetYourGuide →</a>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- KART -->
+
   <section id="kart">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="map-eyebrow">Området</p>
       <h2 class="section-title" data-text="map-title">På kartet</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="map-intro">Klikk på markørene for å se hva som er hvor.</p>
-      <div id="map" class="map-container"></div>
-      <div class="map-legend">
-        <div class="legend-item"><span class="legend-marker legend-venue"></span><span data-text="legend-venue">Vårt sted</span></div>
-        <div class="legend-item"><span class="legend-marker legend-town"></span><span data-text="legend-town">Byer & resorter</span></div>
-        <div class="legend-item"><span class="legend-marker legend-sight"></span><span data-text="legend-sight">Severdigheter</span></div>
-        <div class="legend-item"><span class="legend-marker legend-restaurant"></span><span data-text="legend-restaurant">Restauranter</span></div>
-      </div>
+
+```
+  <p class="section-sub" data-text="map-intro">
+    Klikk på markørene for å se hva som er hvor.
+  </p>
+
+  <div id="map" class="map-container"></div>
+
+  <div class="map-legend">
+    <div class="legend-item">
+      <span class="legend-marker legend-venue"></span>
+      <span data-text="legend-venue">Vårt sted</span>
     </div>
+    <div class="legend-item">
+      <span class="legend-marker legend-town"></span>
+      <span data-text="legend-town">Byer & resorter</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker legend-sight"></span>
+      <span data-text="legend-sight">Severdigheter</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker legend-restaurant"></span>
+      <span data-text="legend-restaurant">Restauranter</span>
+    </div>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- RESTAURANTER -->
+
   <section id="restauranter">
-    <div class="section-wrap">
+    <div class="section-wrap" style="text-align:center;">
       <p class="section-eyebrow" data-text="rest-eyebrow">Spisesteder</p>
       <h2 class="section-title" data-text="rest-title">Anbefalte restauranter</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="rest-intro">
-        Noen favoritter for fersk fisk, lokal mat og spektakulær sjøutsikt.
+
+```
+  <p class="section-sub" data-text="rest-intro">
+    Noen favoritter for fersk fisk, lokal mat og spektakulær sjøutsikt.
+  </p>
+
+  <div class="restaurants-grid" style="text-align:left;">
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-1-type">Skjellfarm & restaurant</p>
+      <h3>Dalboka</h3>
+      <p class="restaurant-location" data-text="rest-1-loc">Kaliakra-bukten</p>
+      <p data-text="rest-1-desc">
+        Berømt skjellfarm med restaurant rett ved bukten.
+        Ferske skjell og sjømat med spektakulær utsikt – en må-oppleve i området.
       </p>
-      <div class="restaurants-grid">
-        <div class="restaurant-card">
-          <p class="restaurant-type" data-text="rest-1-type">Skjellfarm & restaurant</p>
-          <h3>Dalboka</h3>
-          <p data-text="rest-1-desc">Berømt skjellfarm med restaurant rett ved bukten. Ferske skjell og sjømat med spektakulær utsikt.</p>
-        </div>
-        <div class="restaurant-card">
-          <p class="restaurant-type" data-text="rest-2-type">Fiskerestaurant</p>
-          <h3>Captain Cook</h3>
-          <p data-text="rest-2-desc">Ved bryggen i Golden Sands. Black Sea-fisk, sjømat og utsikt mot småbåter og marina.</p>
-        </div>
-        <div class="restaurant-card">
-          <p class="restaurant-type" data-text="rest-3-type">Sjøpromenade</p>
-          <h3 data-text="rest-3-title">Tavernaer i Balchik</h3>
-          <p data-text="rest-3-desc">Koselige lokale tavernaer langs sjøpromenaden. Fersk fisk, bulgarske retter og rolig stemning.</p>
-        </div>
-      </div>
-      <a class="tripadvisor-link" href="https://www.tripadvisor.com/Restaurants-g616071-c33-Varna_Province.html" target="_blank" rel="noopener" data-text="tripadvisor-link">Flere tips på TripAdvisor →</a>
     </div>
+
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-2-type">Fiskerestaurant</p>
+      <h3>Captain Cook</h3>
+      <p class="restaurant-location" data-text="rest-2-loc">Golden Sands</p>
+      <p data-text="rest-2-desc">
+        Ved bryggen i Golden Sands. Black Sea-fisk, sjømat
+        og utsikt mot småbåter og marina.
+      </p>
+    </div>
+
+    <div class="restaurant-card">
+      <p class="restaurant-type" data-text="rest-3-type">Sjøpromenade</p>
+      <h3 data-text="rest-3-title">Tavernaer i Balchik</h3>
+      <p class="restaurant-location" data-text="rest-3-loc">Balchik sjøfront</p>
+      <p data-text="rest-3-desc">
+        Koselige lokale tavernaer langs sjøpromenaden.
+        Fersk fisk, bulgarske retter og rolig stemning.
+      </p>
+    </div>
+  </div>
+
+  <a class="tripadvisor-link" href="https://www.tripadvisor.com/Restaurants-g616071-c33-Varna_Province.html" target="_blank" rel="noopener" data-text="tripadvisor-link">Flere tips på TripAdvisor →</a>
+</div>
+```
+
   </section>
+
+  <!-- PROGRAM -->
+
   <section id="program">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="program-eyebrow">Foreløpig plan</p>
       <h2 class="section-title" data-text="program-title">Program kommer</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="program-text">
-        Programmet vil bli oppdatert når dato, hotell og aktiviteter er bekreftet.
-      </p>
-      <div class="program-list">
-        <div class="program-item">
-          <h3 data-text="program-welcome">Get-together ved stranden</h3>
-          <p data-text="program-welcome-desc">Vi planlegger en avslappet kveld ved sjøen med mat, drikke og hyggelig stemning før bryllupsdagen.</p>
-        </div>
-        <div class="program-item">
-          <h3 data-text="program-wedding">Bryllupsdag</h3>
-          <p data-text="program-wedding-desc">Vielse, middag og feiring med familie og venner i vakre omgivelser ved Svartehavet.</p>
-        </div>
-        <div class="program-item">
-          <h3 data-text="program-activities">Opplevelser i området</h3>
-          <p data-text="program-activities-desc">Vi kommer tilbake med forslag til aktiviteter, restauranter og steder å besøke.</p>
-        </div>
-      </div>
+
+```
+  <p class="section-sub" data-text="program-text">
+    Programmet vil bli oppdatert når dato, hotell og aktiviteter er bekreftet.
+  </p>
+
+  <div class="program-list">
+    <div class="program-item">
+      <h3 data-text="program-welcome">Get-together ved stranden</h3>
+      <p data-text="program-welcome-desc">Vi planlegger en avslappet kveld ved sjøen med mat, drikke og hyggelig stemning før bryllupsdagen.</p>
     </div>
+
+    <div class="program-item">
+      <h3 data-text="program-wedding">Bryllupsdag</h3>
+      <p data-text="program-wedding-desc">Vielse, middag og feiring med familie og venner i vakre omgivelser ved Svartehavet.</p>
+    </div>
+
+    <div class="program-item">
+      <h3 data-text="program-activities">Opplevelser i området</h3>
+      <p data-text="program-activities-desc">Vi kommer tilbake med forslag til aktiviteter, restauranter og steder å besøke.</p>
+    </div>
+  </div>
+</div>
+```
+
   </section>
+
+  <!-- TRANSITION -->
+
   <section id="invitation-transition" style="background:#fff;">
-    <div class="section-wrap">
+    <div class="section-wrap" style="padding-top:4rem; padding-bottom:4rem;">
       <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦</span>
-      <p class="transition-text" data-text="closing-text">
-        Vi håper du vil bli med oss til Svartehavet
-        for å feire kjærligheten, livet og minnene vi skal skape sammen.
-      </p>
-    </div>
+
+```
+  <p class="transition-text" data-text="closing-text">
+    Vi håper du vil bli med oss til Svartehavet
+    for å feire kjærligheten, livet og minnene vi skal skape sammen.
+  </p>
+
+  <p style="margin-top:1.5rem;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:0.6em;">
+    Silje
+    <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.85em;height:0.85em;stroke-width:1.5;color:var(--gold);">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    Kjeld · 2027
+  </p>
+</div>
+```
+
   </section>
+
+  <!-- RSVP -->
+
   <section id="paamelding">
     <div class="section-wrap">
       <p class="section-eyebrow" data-text="rsvp-eyebrow">Påmelding</p>
       <h2 class="section-title" data-text="rsvp-title">Meld deg på</h2>
       <div class="divider"><span class="divider-icon">✦</span></div>
-      <p class="section-sub" data-text="rsvp-text">
-        Fyll inn skjemaet nedenfor. Vi er takknemlige om du melder fra så snart du vet om du kan komme.
-      </p>
-      <form name="paamelding" method="POST" data-netlify="true" action="/thank-you.html" id="rsvp-form" class="rsvp-step">
-        <input type="hidden" name="form-name" value="paamelding" />
-        <input type="hidden" name="registrert_fra" value="Wedding Website" />
-        <div class="form-grid">
+
+```
+  <p class="section-sub" data-text="rsvp-text">
+    Fyll inn skjemaet nedenfor. Vi er takknemlige om du melder fra så snart du vet om du kan komme.
+  </p>
+
+  <form name="paamelding" method="POST" data-netlify="true" action="/thank-you.html" id="rsvp-form" class="rsvp-step">
+    <input type="hidden" name="form-name" value="paamelding" />
+    <input type="hidden" name="registrert_fra" value="Wedding Website" />
+
+    <div class="form-grid">
+      <div class="form-group">
+        <p class="form-person-label" data-text="form-attending">KOMMER DU?</p>
+
+        <div class="form-radio-group">
+          <label class="form-radio">
+            <input type="radio" name="deltar" value="ja" onchange="toggleAttendance()" required />
+            <span data-text="form-yes">Ja, jeg kommer</span>
+          </label>
+
+          <label class="form-radio">
+            <input type="radio" name="deltar" value="nei" onchange="toggleAttendance()" required />
+            <span data-text="form-no">Nei, jeg kan dessverre ikke komme</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="navn" data-text="form-name">NAVN</label>
+        <input class="form-input" id="navn" type="text" name="navn" required placeholder="Ditt navn" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="epost" data-text="form-email">MAIL</label>
+        <input class="form-input" id="epost" type="email" name="epost" required placeholder="din@mail.no" />
+      </div>
+
+      <div id="attending-fields" style="display:none;">
+        <div class="form-grid" style="margin-top:0;">
           <div class="form-group">
-            <p class="form-person-label" data-text="form-attending">KOMMER DU?</p>
-            <div class="form-radio-group">
-              <label class="form-radio">
-                <input type="radio" name="deltar" value="ja" onchange="toggleAttendance()" required />
-                <span data-text="form-yes">Ja, jeg kommer</span>
-              </label>
-              <label class="form-radio">
-                <input type="radio" name="deltar" value="nei" onchange="toggleAttendance()" required />
-                <span data-text="form-no">Nei, jeg kan dessverre ikke komme</span>
-              </label>
+            <label class="form-label" for="telefon" data-text="form-phone">TELEFON</label>
+            <input class="form-input" id="telefon" type="tel" name="telefon" placeholder="+47 000 00 000" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="folge_navn" data-text="form-companion">FØLGETS NAVN</label>
+            <input class="form-input" id="folge_navn" type="text" name="folge_navn" placeholder="Hvis du kommer med følge" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-text="form-allergi">ALLERGI / KOSTHOLD</label>
+            <div class="allergy-grid">
+              <label class="allergy-item"><input type="checkbox" name="allergi_ingen" value="Ingen allergi" /> <span data-text="allergy-none">Ingen allergi</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_melk" value="Melk/laktose" /> <span data-text="allergy-dairy">Melk / laktose</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_egg" value="Egg" /> <span data-text="allergy-egg">Egg</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_notter" value="Nøtter" /> <span data-text="allergy-nuts">Nøtter</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_gluten" value="Gluten" /> <span data-text="allergy-gluten">Gluten</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_fisk" value="Fisk" /> <span data-text="allergy-fish">Fisk</span></label>
+              <label class="allergy-item"><input type="checkbox" name="allergi_skalldyr" value="Skalldyr" /> <span data-text="allergy-shellfish">Skalldyr</span></label>
+              <label class="allergy-item allergy-item--wide"><input type="checkbox" name="allergi_vegetar" value="Vegetar" /> <span data-text="allergy-vegetarian">Vegetar</span></label>
             </div>
+
+            <input class="form-input" style="margin-top:0.7rem;" type="text" name="allergi_annet" placeholder="Annet / merknad til kjøkken" data-placeholder="form-allergi-other" />
           </div>
+
           <div class="form-group">
-            <label class="form-label" for="navn" data-text="form-name">NAVN</label>
-            <input class="form-input" id="navn" type="text" name="navn" required placeholder="Ditt navn" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="epost" data-text="form-email">MAIL</label>
-            <input class="form-input" id="epost" type="email" name="epost" required placeholder="din@mail.no" />
-          </div>
-          <div id="attending-fields" style="display:none;">
-            <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="telefon" data-text="form-phone">TELEFON</label>
-                <input class="form-input" id="telefon" type="tel" name="telefon" placeholder="+47 000 00 000" />
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="folge_navn" data-text="form-companion">FØLGETS NAVN</label>
-                <input class="form-input" id="folge_navn" type="text" name="folge_navn" placeholder="Hvis du kommer med følge" />
-              </div>
-              <div class="form-group">
-                <label class="form-label" data-text="form-allergi">ALLERGI / KOSTHOLD</label>
-                <div class="allergy-grid">
-                  <label class="allergy-item"><input type="checkbox" name="allergi_ingen" value="Ingen allergi" /> <span data-text="allergy-none">Ingen allergi</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_melk" value="Melk/laktose" /> <span data-text="allergy-dairy">Melk / laktose</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_egg" value="Egg" /> <span data-text="allergy-egg">Egg</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_notter" value="Nøtter" /> <span data-text="allergy-nuts">Nøtter</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_gluten" value="Gluten" /> <span data-text="allergy-gluten">Gluten</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_fisk" value="Fisk" /> <span data-text="allergy-fish">Fisk</span></label>
-                  <label class="allergy-item"><input type="checkbox" name="allergi_skalldyr" value="Skalldyr" /> <span data-text="allergy-shellfish">Skalldyr</span></label>
-                  <label class="allergy-item allergy-item--wide"><input type="checkbox" name="allergi_vegetar" value="Vegetar" /> <span data-text="allergy-vegetarian">Vegetar</span></label>
-                </div>
-                <input class="form-input" type="text" name="allergi_annet" placeholder="Annet / merknad til kjøkken" />
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="melding" data-text="form-message">MELDING TIL BRUDEPARET</label>
-                <textarea class="form-input form-textarea" id="melding" name="melding" placeholder="Noe du vil si til Silje og Kjeld?"></textarea>
-              </div>
-            </div>
-          </div>
-          <div id="not-attending-fields" style="display:none;">
-            <div class="form-group">
-              <label class="form-label" for="melding_kommer_ikke" data-text="form-message-no">MELDING TIL BRUDEPARET</label>
-              <textarea class="form-input form-textarea" id="melding_kommer_ikke" name="melding_kommer_ikke" placeholder="Skriv gjerne en kort hilsen"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="form-submit" data-text="form-submit">Send svar</button>
+            <label class="form-label" for="melding" data-text="form-message">MELDING TIL BRUDEPARET</label>
+            <textarea class="form-input form-textarea" id="melding" name="melding" placeholder="Noe du vil si til Silje og Kjeld?"></textarea>
           </div>
         </div>
-      </form>
+      </div>
+
+      <div id="not-attending-fields" style="display:none;">
+        <div class="form-group">
+          <label class="form-label" for="melding_kommer_ikke" data-text="form-message-no">MELDING TIL BRUDEPARET</label>
+          <textarea class="form-input form-textarea" id="melding_kommer_ikke" name="melding_kommer_ikke" placeholder="Skriv gjerne en kort hilsen"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="form-submit" data-text="form-submit">Send svar</button>
+      </div>
     </div>
+  </form>
+</div>
+```
+
   </section>
+
   <footer>
     <div class="footer-names">
       S
@@ -1122,9 +1788,12 @@
     <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦</span>
     <p style="margin-top:1rem;font-size:0.95rem;">Bulgaria · 2027</p>
   </footer>
+
   <script>
     const translations = {
       no: {
+        'welcome': 'Velkommen',
+        'enter-btn': 'Åpne',
         'wrong-password': 'Feil passord',
         'nav-home': 'Hjem',
         'nav-invitation': 'Invitasjon',
@@ -1137,6 +1806,7 @@
         'date-label': 'DATO IKKE FASTSATT ENNÅ',
         'date-info': 'SENSOMMER 2027 · NØYAKTIG DATO KOMMER',
         'invitation-eyebrow': 'Invitasjon',
+        'invitation-title': 'Vi gleder oss',
         'invitation-text': 'Vi gleder oss til å samle familie og venner ved Svartehavet. Mer informasjon om dato, sted, reise og program sendes så snart det er avklart.',
         'travel-eyebrow': 'Praktisk informasjon',
         'travel-title': 'Reise og opphold',
@@ -1156,6 +1826,16 @@
         'destination-albena-desc': 'Albena er et rolig og familievennlig område med lange strender, hyggelige restauranter og gode hotellmuligheter.',
         'destination-balchik': 'Balchik',
         'destination-balchik-desc': 'Balchik er en sjarmerende kystby kjent for sin vakre sjøpromenade, hyggelige restauranter og rolige atmosfære.',
+        'program-eyebrow': 'Foreløpig plan',
+        'program-title': 'Program kommer',
+        'program-text': 'Programmet vil bli oppdatert når dato, hotell og aktiviteter er bekreftet.',
+        'program-welcome': 'Get-together ved stranden',
+        'program-welcome-desc': 'Vi planlegger en avslappet kveld ved sjøen med mat, drikke og hyggelig stemning før bryllupsdagen.',
+        'program-wedding': 'Bryllupsdag',
+        'program-wedding-desc': 'Vielse, middag og feiring med familie og venner i vakre omgivelser ved Svartehavet.',
+        'program-activities': 'Opplevelser i området',
+        'program-activities-desc': 'Vi kommer tilbake med forslag til aktiviteter, restauranter og steder å besøke.',
+        'closing-text': 'Vi håper du vil bli med oss til Svartehavet for å feire kjærligheten, livet og minnene vi skal skape sammen.',
         'balchik-eyebrow': 'Vår destinasjon',
         'balchik-title': 'Balchik',
         'balchik-intro': 'Sjarmerende historisk by med hvitkalkede hus, dramatisk kystlinje og rolig atmosfære. Kun 40 km fra Varna.',
@@ -1192,6 +1872,15 @@
         'exp-palace-label': 'Balchik · Kultur',
         'exp-palace-title': 'Palasset & Kaliakra',
         'exp-palace-desc': 'Dronning Marias palass, botanisk hage og den dramatiske kappen Kaliakra.',
+        'exp-monastery-label': 'Varna · Historie',
+        'exp-monastery-title': 'Aladzha-klosteret',
+        'exp-monastery-desc': 'Middelalder-kloster hugget inn i fjellveggen, med guidet omvisning.',
+        'exp-stones-label': 'Varna · Natur',
+        'exp-stones-title': 'Steinskogen ved solnedgang',
+        'exp-stones-desc': 'Mystisk steinformasjon i magisk kveldslys – en uforglemmelig opplevelse.',
+        'exp-folk-label': 'Tradisjon · Kveld',
+        'exp-folk-title': 'Bulgarsk folkeaften',
+        'exp-folk-desc': 'Tradisjonell folkemusikk, dans og lokal mat i autentisk atmosfære.',
         'getyourguide-link': 'Utforsk flere på GetYourGuide →',
         'map-eyebrow': 'Området',
         'map-title': 'På kartet',
@@ -1204,23 +1893,16 @@
         'rest-title': 'Anbefalte restauranter',
         'rest-intro': 'Noen favoritter for fersk fisk, lokal mat og spektakulær sjøutsikt.',
         'rest-1-type': 'Skjellfarm & restaurant',
-        'rest-1-desc': 'Berømt skjellfarm med restaurant rett ved bukten. Ferske skjell og sjømat med spektakulær utsikt.',
+        'rest-1-loc': 'Kaliakra-bukten',
+        'rest-1-desc': 'Berømt skjellfarm med restaurant rett ved bukten. Ferske skjell og sjømat med spektakulær utsikt – en må-oppleve i området.',
         'rest-2-type': 'Fiskerestaurant',
+        'rest-2-loc': 'Golden Sands',
         'rest-2-desc': 'Ved bryggen i Golden Sands. Black Sea-fisk, sjømat og utsikt mot småbåter og marina.',
         'rest-3-type': 'Sjøpromenade',
         'rest-3-title': 'Tavernaer i Balchik',
+        'rest-3-loc': 'Balchik sjøfront',
         'rest-3-desc': 'Koselige lokale tavernaer langs sjøpromenaden. Fersk fisk, bulgarske retter og rolig stemning.',
         'tripadvisor-link': 'Flere tips på TripAdvisor →',
-        'program-eyebrow': 'Foreløpig plan',
-        'program-title': 'Program kommer',
-        'program-text': 'Programmet vil bli oppdatert når dato, hotell og aktiviteter er bekreftet.',
-        'program-welcome': 'Get-together ved stranden',
-        'program-welcome-desc': 'Vi planlegger en avslappet kveld ved sjøen med mat, drikke og hyggelig stemning før bryllupsdagen.',
-        'program-wedding': 'Bryllupsdag',
-        'program-wedding-desc': 'Vielse, middag og feiring med familie og venner i vakre omgivelser ved Svartehavet.',
-        'program-activities': 'Opplevelser i området',
-        'program-activities-desc': 'Vi kommer tilbake med forslag til aktiviteter, restauranter og steder å besøke.',
-        'closing-text': 'Vi håper du vil bli med oss til Svartehavet for å feire kjærligheten, livet og minnene vi skal skape sammen.',
         'rsvp-eyebrow': 'Påmelding',
         'rsvp-title': 'Meld deg på',
         'rsvp-text': 'Fyll inn skjemaet nedenfor. Vi er takknemlige om du melder fra så snart du vet om du kan komme.',
@@ -1243,87 +1925,376 @@
         'form-message': 'MELDING TIL BRUDEPARET',
         'form-message-no': 'MELDING TIL BRUDEPARET',
         'form-submit': 'Send svar'
+      },
+      en: {
+        'welcome': 'Welcome',
+        'enter-btn': 'Enter',
+        'wrong-password': 'Wrong password',
+        'nav-home': 'Home',
+        'nav-invitation': 'Invitation',
+        'nav-travel': 'Travel',
+        'nav-destination': 'Destination',
+        'nav-program': 'Program',
+        'nav-rsvp': 'RSVP',
+        'hero-pre': 'WE ARE DELIGHTED TO INVITE YOU TO OUR WEDDING',
+        'hero-location': 'Black Sea Coast, Bulgaria',
+        'date-label': 'DATE TO BE ANNOUNCED',
+        'date-info': 'LATE SUMMER 2027 · EXACT DATE COMING SOON',
+        'invitation-eyebrow': 'Invitation',
+        'invitation-title': 'We are excited',
+        'invitation-text': 'We look forward to gathering family and friends by the Black Sea. More information about date, location, travel and program will be sent as soon as it is confirmed.',
+        'travel-eyebrow': 'Practical information',
+        'travel-title': 'Travel and accommodation',
+        'travel-text': 'We are working to obtain information from hotels and local partners. Our goal is to make the journey simple and clear for all guests.',
+        'travel-airport': 'Airport',
+        'travel-airport-desc': 'The nearest major airport will likely be Varna. More information about recommended routes will follow.',
+        'travel-hotel': 'Hotels',
+        'travel-hotel-desc': 'We are exploring hotel options on the coast, including Balchik, Albena and the Varna area.',
+        'travel-transport': 'Transport',
+        'travel-transport-desc': 'We are looking at practical solutions for transport between airport, hotel and wedding venue.',
+        'destination-eyebrow': 'Destination',
+        'destination-title': 'Bulgaria\'s Black Sea Coast',
+        'destination-text': 'We want to gather family and friends along the beautiful Black Sea coast in Bulgaria, surrounded by the sea, warm summer evenings, and relaxed beach life.',
+        'destination-bulgaria': 'Bulgaria',
+        'destination-bulgaria-desc': 'Bulgaria offers warm hospitality, fantastic food, long beaches, and beautiful surroundings along the Black Sea.',
+        'destination-albena': 'Albena',
+        'destination-albena-desc': 'Albena is a peaceful and family-friendly area with long beaches, lovely restaurants, and great hotel options.',
+        'destination-balchik': 'Balchik',
+        'destination-balchik-desc': 'Balchik is a charming coastal town known for its beautiful seafront promenade, cozy restaurants, and peaceful atmosphere.',
+        'program-eyebrow': 'Preliminary plan',
+        'program-title': 'Program coming soon',
+        'program-text': 'The program will be updated when the date, hotel and activities are confirmed.',
+        'program-welcome': 'Get-together by the beach',
+        'program-welcome-desc': 'We plan a relaxed evening by the sea with food, drinks and good atmosphere before the wedding day.',
+        'program-wedding': 'Wedding day',
+        'program-wedding-desc': 'Ceremony, dinner and celebration with family and friends in beautiful surroundings by the Black Sea.',
+        'program-activities': 'Experiences in the area',
+        'program-activities-desc': 'We will come back with suggestions for activities, restaurants and places to visit.',
+        'closing-text': 'We hope you will join us on the Black Sea coast to celebrate love, life and the memories we will create together.',
+        'balchik-eyebrow': 'Our destination',
+        'balchik-title': 'Balchik',
+        'balchik-intro': 'A charming historic town with whitewashed houses, dramatic coastline, and a peaceful atmosphere. Just 40 km from Varna.',
+        'balchik-palace-title': 'Queen Marie\'s Palace',
+        'balchik-palace-desc': 'Romantic castle with one of South-Eastern Europe\'s most beautiful botanical gardens.',
+        'balchik-pier-title': 'The White Coast',
+        'balchik-pier-desc': 'Whitewashed houses along the limestone cliffs, with a charming seafront promenade.',
+        'balchik-beach-title': 'The Beach and Sea',
+        'balchik-beach-desc': 'Sandy beaches, crystal-clear water, and spectacular sunsets.',
+        'venue-eyebrow': 'The ceremony and celebration',
+        'venue-title': 'Our venue',
+        'venue-tagline': 'Where we say I do',
+        'venue-subtitle': 'Golf & Villas Resort',
+        'venue-intro': 'Black Sea Rama lies 7 km from Balchik, 200 metres above sea level. An exclusive resort with spectacular views and Bulgaria\'s first championship golf course.',
+        'venue-location-label': 'Location',
+        'venue-location-title': '200 m above the Black Sea',
+        'venue-location-desc': 'Luxury villas, four restaurants, and endless views toward Cape Kaliakra.',
+        'venue-ceremony-label': 'The Ceremony',
+        'venue-ceremony-title': 'Open-air amphitheatre',
+        'venue-ceremony-desc': 'We will say "I do" at the resort\'s beautiful amphitheatre – framed by sea and sky.',
+        'venue-reception-label': 'The Celebration',
+        'venue-reception-title': 'The EVENTUM Hall',
+        'venue-reception-desc': 'A spacious, bright reception hall overlooking the sea and the golf course.',
+        'venue-link-text': 'Visit Black Sea Rama →',
+        'activities-eyebrow': 'Curated experiences',
+        'activities-title': 'The best of the area',
+        'activities-intro': 'A handful of selected highlights with focus on tradition, culture, and fine experiences.',
+        'exp-wine-label': 'Varna · Wine tasting',
+        'exp-wine-title': 'Private Bulgarian wine tasting',
+        'exp-wine-desc': "Taste Bulgaria's finest wines with a personal sommelier in Varna.",
+        'exp-cruise-label': 'Balchik · The sea',
+        'exp-cruise-title': 'Black Sea cruise',
+        'exp-cruise-desc': '4-hour sailing trip from Balchik with lunch and drinks on board.',
+        'exp-palace-label': 'Balchik · Culture',
+        'exp-palace-title': 'Palace & Kaliakra',
+        'exp-palace-desc': "Queen Marie's Palace, botanical garden, and the dramatic Cape Kaliakra.",
+        'exp-monastery-label': 'Varna · History',
+        'exp-monastery-title': 'Aladzha Monastery',
+        'exp-monastery-desc': 'Medieval monastery carved into the cliff face, with a guided tour.',
+        'exp-stones-label': 'Varna · Nature',
+        'exp-stones-title': 'Stone Forest at sunset',
+        'exp-stones-desc': 'Mysterious stone formations in magical evening light – an unforgettable experience.',
+        'exp-folk-label': 'Tradition · Evening',
+        'exp-folk-title': 'Bulgarian folk evening',
+        'exp-folk-desc': 'Traditional folk music, dance, and local food in an authentic atmosphere.',
+        'getyourguide-link': 'Explore more on GetYourGuide →',
+        'map-eyebrow': 'The area',
+        'map-title': 'On the map',
+        'map-intro': 'Click the markers to see what is where.',
+        'legend-venue': 'Our venue',
+        'legend-town': 'Towns & resorts',
+        'legend-sight': 'Sights',
+        'legend-restaurant': 'Restaurants',
+        'rest-eyebrow': 'Where to eat',
+        'rest-title': 'Recommended restaurants',
+        'rest-intro': 'A few favourites for fresh fish, local food and spectacular sea views.',
+        'rest-1-type': 'Mussel farm & restaurant',
+        'rest-1-loc': 'Kaliakra Bay',
+        'rest-1-desc': 'Famous mussel farm with a restaurant right by the bay. Fresh mussels and seafood with spectacular views – a must-do in the area.',
+        'rest-2-type': 'Fish restaurant',
+        'rest-2-loc': 'Golden Sands',
+        'rest-2-desc': 'By the pier in Golden Sands. Black Sea fish, seafood and views over boats and the marina.',
+        'rest-3-type': 'Seafront promenade',
+        'rest-3-title': 'Taverns in Balchik',
+        'rest-3-loc': 'Balchik seafront',
+        'rest-3-desc': 'Cozy local taverns along the seafront promenade. Fresh fish, Bulgarian dishes and a calm atmosphere.',
+        'tripadvisor-link': 'More tips on TripAdvisor →',
+        'rsvp-eyebrow': 'RSVP',
+        'rsvp-title': 'Please let us know',
+        'rsvp-text': 'Fill out the form below. We are grateful if you let us know as soon as you know if you can come.',
+        'form-attending': 'WILL YOU BE ATTENDING?',
+        'form-yes': 'Yes, I will attend',
+        'form-no': 'No, I unfortunately cannot attend',
+        'form-name': 'NAME',
+        'form-email': 'EMAIL',
+        'form-phone': 'PHONE',
+        'form-companion': 'COMPANION\'S NAME',
+        'form-allergi': 'ALLERGIES / DIETARY REQUIREMENTS',
+        'allergy-none': 'No allergies',
+        'allergy-dairy': 'Dairy / lactose',
+        'allergy-egg': 'Egg',
+        'allergy-nuts': 'Nuts',
+        'allergy-gluten': 'Gluten',
+        'allergy-fish': 'Fish',
+        'allergy-shellfish': 'Shellfish',
+        'allergy-vegetarian': 'Vegetarian',
+        'form-message': 'MESSAGE FOR THE COUPLE',
+        'form-message-no': 'MESSAGE FOR THE COUPLE',
+        'form-submit': 'Submit'
+      },
+      bg: {
+        'welcome': 'Добре дошли',
+        'enter-btn': 'Вход',
+        'wrong-password': 'Грешна парола',
+        'nav-home': 'Начало',
+        'nav-invitation': 'Покана',
+        'nav-travel': 'Пътуване',
+        'nav-destination': 'Дестинация',
+        'nav-program': 'Програма',
+        'nav-rsvp': 'RSVP',
+        'hero-pre': 'РАДВАМЕ СЕ ДА ВИ ПОКАНИМ НА НАШАТА СВАТБА',
+        'hero-location': 'Черноморския бряг, България',
+        'date-label': 'ДАТАТА ЩЕ БЪДЕ ОБЯВЕНА',
+        'date-info': 'ЛЯТО 2027 · ТОЧНАТА ДАТА ИДВА СКОРО',
+        'invitation-eyebrow': 'Покана',
+        'invitation-title': 'Радвам се',
+        'invitation-text': 'Очаквам да съберем семейство и приятели на Черноморския бряг. Повече информация за датата, място, пътуване и програма ще бъдат изпратени веднага след потвърждение.',
+        'travel-eyebrow': 'Практична информация',
+        'travel-title': 'Пътуване и настаняване',
+        'travel-text': 'Работим, за да получим информация от хотели и местни партньори. Нашата цел е да направим пътуването просто и ясно за всички гости.',
+        'travel-airport': 'Летище',
+        'travel-airport-desc': 'Най-близкото голямо летище вероятно ще бъде Варна. Повече информация за препоръчаните маршрути ще последват.',
+        'travel-hotel': 'Хотели',
+        'travel-hotel-desc': 'Изследваме хотелски варианти на брега, включително Балчик, Албена и района на Варна.',
+        'travel-transport': 'Транспорт',
+        'travel-transport-desc': 'Разглеждаме практични решения за транспорт между летище, хотел и място на сватба.',
+        'destination-eyebrow': 'Дестинация',
+        'destination-title': 'Черноморския бряг на България',
+        'destination-text': 'Искаме да съберем семейство и приятели на красивото Черноморско крайбрежие в България, заобиколени от морето, топли летни вечери и спокоен плажен живот.',
+        'destination-bulgaria': 'България',
+        'destination-bulgaria-desc': 'България предлага топло гостоприемство, фантастична храна, дълги плажове и красива природа по Черноморското крайбрежие.',
+        'destination-albena': 'Албена',
+        'destination-albena-desc': 'Албена е спокоен и подходящ за семейства район с дълги плажове, приятни ресторанти и добри хотелски възможности.',
+        'destination-balchik': 'Балчик',
+        'destination-balchik-desc': 'Балчик е очарователен крайбрежен град, известен с красивата си крайбрежна алея, уютни ресторанти и спокойна атмосфера.',
+        'program-eyebrow': 'Предварителен план',
+        'program-title': 'Програма идва',
+        'program-text': 'Програмата ще бъде актуализирана, когато датата, хотелът и дейностите са потвърдени.',
+        'program-welcome': 'Събиране на плажа',
+        'program-welcome-desc': 'Планираме спокойна вечер на морския бряг с храна, напитки и хубаво настроение преди сватбеният ден.',
+        'program-wedding': 'Сватбен ден',
+        'program-wedding-desc': 'Церемония, вечеря и празнуване със семейство и приятели в красивата природа на Черноморския бряг.',
+        'program-activities': 'Преживявания в района',
+        'program-activities-desc': 'Ще се върнем с предложения за дейности, ресторанти и места за посещение.',
+        'closing-text': 'Надяваме се, че ще се присъедините към нас на Черноморския бряг, за да празнуваме любовта, живота и спомените, които ще създадем заедно.',
+        'balchik-eyebrow': 'Нашата дестинация',
+        'balchik-title': 'Балчик',
+        'balchik-intro': 'Очарователен исторически град с варосани къщи, драматична брегова линия и спокойна атмосфера. Само на 40 км от Варна.',
+        'balchik-palace-title': 'Дворецът на кралица Мария',
+        'balchik-palace-desc': 'Романтичен дворец с една от най-красивите ботанически градини в Югоизточна Европа.',
+        'balchik-pier-title': 'Белият бряг',
+        'balchik-pier-desc': 'Варосани къщи по варовиковите скали и очарователна крайбрежна алея.',
+        'balchik-beach-title': 'Плажът и морето',
+        'balchik-beach-desc': 'Пясъчни плажове, кристално чиста вода и зрелищни залези.',
+        'venue-eyebrow': 'Церемонията и празненството',
+        'venue-title': 'Нашето място',
+        'venue-tagline': 'Тук казваме „Да"',
+        'venue-subtitle': 'Golf & Villas Resort',
+        'venue-intro': 'Black Sea Rama се намира на 7 км от Балчик, на 200 метра над морето. Ексклузивен курорт с впечатляваща гледка и първия шампионатен голф терен в България.',
+        'venue-location-label': 'Местоположение',
+        'venue-location-title': '200 м над Черно море',
+        'venue-location-desc': 'Луксозни вили, четири ресторанта и безкрайна гледка към нос Калиакра.',
+        'venue-ceremony-label': 'Церемонията',
+        'venue-ceremony-title': 'Открит амфитеатър',
+        'venue-ceremony-desc': 'Казваме „Да" в красивия амфитеатър на курорта – с морето и небето като декор.',
+        'venue-reception-label': 'Празненството',
+        'venue-reception-title': 'Зала EVENTUM',
+        'venue-reception-desc': 'Просторна и светла зала с гледка към морето и голф терена.',
+        'venue-link-text': 'Посетете Black Sea Rama →',
+        'activities-eyebrow': 'Селективни изживявания',
+        'activities-title': 'Най-доброто от района',
+        'activities-intro': 'Няколко избрани акценти с фокус върху традицията, културата и изтънчените изживявания.',
+        'exp-wine-label': 'Варна · Дегустация',
+        'exp-wine-title': 'Частна българска винена дегустация',
+        'exp-wine-desc': 'Опитайте най-добрите вина на България с личен сомелиер във Варна.',
+        'exp-cruise-label': 'Балчик · Морето',
+        'exp-cruise-title': 'Черноморски круиз',
+        'exp-cruise-desc': '4-часов плавателен излет от Балчик с обяд и напитки на борда.',
+        'exp-palace-label': 'Балчик · Култура',
+        'exp-palace-title': 'Дворецът & Калиакра',
+        'exp-palace-desc': 'Дворецът на кралица Мария, ботаническата градина и драматичният нос Калиакра.',
+        'exp-monastery-label': 'Варна · История',
+        'exp-monastery-title': 'Аладжа манастир',
+        'exp-monastery-desc': 'Средновековен манастир, издълбан в скалата, с екскурзовод.',
+        'exp-stones-label': 'Варна · Природа',
+        'exp-stones-title': 'Побитите камъни на залез',
+        'exp-stones-desc': 'Мистична скална формация в магическа вечерна светлина – незабравимо изживяване.',
+        'exp-folk-label': 'Традиция · Вечер',
+        'exp-folk-title': 'Българска фолклорна вечер',
+        'exp-folk-desc': 'Традиционна фолклорна музика, танци и местна храна в автентична атмосфера.',
+        'getyourguide-link': 'Открийте повече в GetYourGuide →',
+        'map-eyebrow': 'Района',
+        'map-title': 'На картата',
+        'map-intro': 'Кликнете върху маркерите, за да видите какво къде се намира.',
+        'legend-venue': 'Нашето място',
+        'legend-town': 'Градове и курорти',
+        'legend-sight': 'Забележителности',
+        'legend-restaurant': 'Ресторанти',
+        'rest-eyebrow': 'Места за хранене',
+        'rest-title': 'Препоръчани ресторанти',
+        'rest-intro': 'Няколко любими места за прясна риба, местна храна и зашеметяващи морски гледки.',
+        'rest-1-type': 'Ферма за миди и ресторант',
+        'rest-1-loc': 'Залив Калиакра',
+        'rest-1-desc': 'Известна ферма за миди с ресторант до залива. Пресни миди и морски дарове с впечатляваща гледка – задължително в района.',
+        'rest-2-type': 'Рибен ресторант',
+        'rest-2-loc': 'Златни пясъци',
+        'rest-2-desc': 'До пристана на Златни пясъци. Риба от Черно море, морски дарове и гледка към лодки и марината.',
+        'rest-3-type': 'Крайбрежна алея',
+        'rest-3-title': 'Кръчми в Балчик',
+        'rest-3-loc': 'Брегът на Балчик',
+        'rest-3-desc': 'Уютни местни кръчми по крайбрежната алея. Прясна риба, български ястия и спокойна атмосфера.',
+        'tripadvisor-link': 'Още съвети в TripAdvisor →',
+        'rsvp-eyebrow': 'RSVP',
+        'rsvp-title': 'Моля, уведомете ни',
+        'rsvp-text': 'Попълнете формуляра по-долу. Благодарим на вас, ако ни уведомите веднага щом знаете дали можете да дойдете.',
+        'form-attending': 'ЩЕ УЧАСТВАТЕ ЛИ?',
+        'form-yes': 'Да, ще участвам',
+        'form-no': 'Не, за съжаление не мога да дойда',
+        'form-name': 'ИМЕ',
+        'form-email': 'ИМЕЙЛ',
+        'form-phone': 'ТЕЛЕФОН',
+        'form-companion': 'ИМЕ НА СПЪТНИК',
+        'form-allergi': 'АЛЕРГИИ / ДИЕТИЧНИ ИЗИСКВАНИЯ',
+        'allergy-none': 'Без алергии',
+        'allergy-dairy': 'Млечни продукти / лактоза',
+        'allergy-egg': 'Яйца',
+        'allergy-nuts': 'Ядки',
+        'allergy-gluten': 'Глутен',
+        'allergy-fish': 'Риба',
+        'allergy-shellfish': 'Морски раци',
+        'allergy-vegetarian': 'Вегетарианец',
+        'form-message': 'СЪОБЩЕНИЕ ЗА ДВОЙКАТА',
+        'form-message-no': 'СЪОБЩЕНИЕ ЗА ДВОЙКАТА',
+        'form-submit': 'Изпращане'
       }
     };
+
     let currentLang = 'no';
+
     function setLanguage(lang) {
       currentLang = lang;
       document.documentElement.lang = lang;
+
+      // Update all elements with data-text attribute
       document.querySelectorAll('[data-text]').forEach(element => {
         const key = element.dataset.text;
         if (translations[lang] && translations[lang][key]) {
           element.textContent = translations[lang][key];
-        } else if (translations.no[key]) {
-          element.textContent = translations.no[key];
         }
       });
+
+      // Update active button
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      const activeBtn = document.querySelector(`[data-lang="${lang}"]`);
-      if (activeBtn) activeBtn.classList.add('active');
+      document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+      // Save preference
       localStorage.setItem('preferred-language', lang);
+
+      // Update map popups if map exists
       if (typeof updateMapPopups === 'function' && typeof weddingMap !== 'undefined' && weddingMap) {
         updateMapPopups();
       }
     }
+
+    // Language button event listeners
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         setLanguage(this.dataset.lang);
       });
     });
+
+    // Password functionality
     function openWeddingSite() {
-      const password = document.getElementById('pw-input').value;
-      const error = document.getElementById('pw-error');
-      if (password !== 'SiljeogKjeld') {
+      var password = document.getElementById('pw-input').value;
+      var error = document.getElementById('pw-error');
+
+      if (password !== 'SiljeandKjeld') {
         error.classList.add('show');
+
         setTimeout(function () {
           error.classList.remove('show');
         }, 2000);
+
         return;
       }
+
       sessionStorage.setItem('sk27', '1');
-      const intro = document.getElementById('pw-screen');
+
+      var intro = document.getElementById('pw-screen');
       intro.classList.add('hidden');
+
       setTimeout(function () {
         intro.style.display = 'none';
         document.body.classList.remove('locked');
       }, 600);
     }
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('open');
-    }
-    document.querySelectorAll('#navLinks a').forEach(link => {
-      link.addEventListener('click', function () {
-        document.getElementById('navLinks').classList.remove('open');
-      });
-    });
+
     window.addEventListener('load', function () {
       if (sessionStorage.getItem('sk27') === '1') {
-        const intro = document.getElementById('pw-screen');
+        var intro = document.getElementById('pw-screen');
+
         if (intro) {
           intro.style.display = 'none';
         }
+
         document.body.classList.remove('locked');
       }
+
+      // Load saved language preference or browser language
       const saved = localStorage.getItem('preferred-language');
       const browserLang = navigator.language.split('-')[0];
       const lang = saved || (browserLang === 'en' || browserLang === 'bg' ? browserLang : 'no');
+      
       if (['no', 'en', 'bg'].includes(lang)) {
         setLanguage(lang);
       }
     });
+
     document.getElementById('pw-input').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
         openWeddingSite();
       }
     });
+
     function toggleAttendance() {
-      const status = document.querySelector('input[name="deltar"]:checked');
-      const attendingFields = document.getElementById('attending-fields');
-      const notAttendingFields = document.getElementById('not-attending-fields');
-      const form = document.getElementById('rsvp-form');
+      var status = document.querySelector('input[name="deltar"]:checked');
+      var attendingFields = document.getElementById('attending-fields');
+      var notAttendingFields = document.getElementById('not-attending-fields');
+      var form = document.getElementById('rsvp-form');
+
       if (!status) return;
+
       if (status.value === 'ja') {
         attendingFields.style.display = 'block';
         notAttendingFields.style.display = 'none';
@@ -1335,81 +2306,175 @@
       }
     }
   </script>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
+
   <script>
+    // ====== MAP DATA ======
     const placeData = [
       {
         coords: [43.4205, 28.0966],
         type: 'venue',
         name: 'Black Sea Rama',
-        labels: { no: 'Vårt sted' },
-        descs: { no: 'Her holdes vielsen og festen' }
+        labels: { no: 'Vårt sted', en: 'Our venue', bg: 'Нашето място' },
+        descs: {
+          no: 'Her holdes vielsen og festen',
+          en: 'Where the ceremony and reception take place',
+          bg: 'Тук се провежда церемонията и празненството'
+        }
       },
       {
         coords: [43.4239, 28.1611],
         type: 'town',
         name: 'Balchik',
-        labels: { no: 'Kystby' },
-        descs: { no: 'Sjarmerende by med palass og sjøpromenade' }
+        labels: { no: 'Kystby', en: 'Coastal town', bg: 'Крайбрежен град' },
+        descs: {
+          no: 'Sjarmerende by med palass og sjøpromenade',
+          en: 'Charming town with palace and seaside promenade',
+          bg: 'Очарователен град с дворец и крайбрежна алея'
+        }
       },
       {
         coords: [43.3739, 28.0814],
         type: 'town',
         name: 'Albena',
-        labels: { no: 'Ferieresort' },
-        descs: { no: 'Familievennlig område med strand' }
+        labels: { no: 'Ferieresort', en: 'Holiday resort', bg: 'Курорт' },
+        descs: {
+          no: 'Familievennlig område med strand',
+          en: 'Family-friendly resort area with beach',
+          bg: 'Семеен курорт с плаж'
+        }
       },
       {
         coords: [43.2141, 27.9147],
         type: 'town',
         name: 'Varna',
-        labels: { no: 'Storby' },
-        descs: { no: 'Storby med flyplass, shopping og kultur' }
+        labels: { no: 'Storby', en: 'Main city', bg: 'Голям град' },
+        descs: {
+          no: 'Storby med flyplass, shopping og kultur',
+          en: 'Main city with airport, shopping, and culture',
+          bg: 'Голям град с летище, шопинг и култура'
+        }
+      },
+      {
+        coords: [43.2885, 28.0405],
+        type: 'town',
+        name: 'Golden Sands',
+        labels: { no: 'Strand & resort', en: 'Beach & resort', bg: 'Плаж и курорт' },
+        descs: {
+          no: 'Berømt sandstrand med restauranter og strandliv',
+          en: 'Famous sandy beach with restaurants and beach life',
+          bg: 'Известен пясъчен плаж с ресторанти и плажен живот'
+        }
       },
       {
         coords: [43.2321, 27.8253],
         type: 'sight',
         name: 'Varna lufthavn',
-        labels: { no: 'Flyplass' },
-        descs: { no: 'Nærmeste internasjonale flyplass' }
+        labels: { no: 'Flyplass', en: 'Airport', bg: 'Летище' },
+        descs: {
+          no: 'Nærmeste internasjonale flyplass',
+          en: 'Nearest international airport',
+          bg: 'Най-близкото международно летище'
+        }
       },
       {
         coords: [43.3650, 28.4636],
         type: 'sight',
         name: 'Kaliakra',
-        labels: { no: 'Severdighet' },
-        descs: { no: 'Dramatisk klippe ut i Svartehavet' }
+        labels: { no: 'Severdighet', en: 'Sight', bg: 'Забележителност' },
+        descs: {
+          no: 'Dramatisk klippe ut i Svartehavet',
+          en: 'Dramatic cliff jutting into the Black Sea',
+          bg: 'Драматична скала към Черно море'
+        }
+      },
+      {
+        coords: [43.2858, 28.0469],
+        type: 'sight',
+        name: 'Aladzha-klosteret',
+        labels: { no: 'Severdighet', en: 'Sight', bg: 'Забележителност' },
+        descs: {
+          no: 'Middelalder-kloster hugget inn i fjell',
+          en: 'Medieval monastery carved into the cliff',
+          bg: 'Средновековен манастир в скалата'
+        }
+      },
+      {
+        coords: [43.2253, 27.7042],
+        type: 'sight',
+        name: 'Steinskogen',
+        labels: { no: 'Naturfenomen', en: 'Natural wonder', bg: 'Природно чудо' },
+        descs: {
+          no: 'Mystiske steinformasjoner – magisk ved solnedgang',
+          en: 'Mysterious stone formations – magical at sunset',
+          bg: 'Мистични скални формации – магически на залез'
+        }
+      },
+      {
+        coords: [43.2102, 27.9203],
+        type: 'sight',
+        name: 'Grand Mall Varna',
+        labels: { no: 'Shopping', en: 'Shopping', bg: 'Шопинг' },
+        descs: {
+          no: 'Bulgarias største kjøpesenter',
+          en: "Bulgaria's largest shopping centre",
+          bg: 'Най-големият търговски център в България'
+        }
       },
       {
         coords: [43.3958, 28.4486],
         type: 'restaurant',
         name: 'Dalboka',
-        labels: { no: 'Skjellrestaurant' },
-        descs: { no: 'Berømt skjellfarm ved Kaliakra-bukten' }
+        labels: { no: 'Skjellrestaurant', en: 'Mussel restaurant', bg: 'Ресторант с миди' },
+        descs: {
+          no: 'Berømt skjellfarm ved Kaliakra-bukten – ferskt fra havet',
+          en: 'Famous mussel farm by Kaliakra Bay – fresh from the sea',
+          bg: 'Известна ферма за миди в Калиакра – прясно от морето'
+        }
+      },
+      {
+        coords: [43.2906, 28.0405],
+        type: 'restaurant',
+        name: 'Captain Cook',
+        labels: { no: 'Fiskerestaurant', en: 'Fish restaurant', bg: 'Рибен ресторант' },
+        descs: {
+          no: 'Fersk fisk og sjømat ved bryggen i Golden Sands',
+          en: 'Fresh fish and seafood by the pier in Golden Sands',
+          bg: 'Прясна риба и морски дарове на пристана в Златни пясъци'
+        }
       }
     ];
+
+    // ====== INITIALIZE MAP ======
     let weddingMap;
     const markerRefs = [];
+
     function initMap() {
       if (typeof L === 'undefined') return;
       if (weddingMap) return;
+
       weddingMap = L.map('map', {
         center: [43.33, 28.15],
         zoom: 10,
         scrollWheelZoom: false
       });
+
+      // Use a clean, light tile style
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap',
         maxZoom: 18
       }).addTo(weddingMap);
+
       const iconConfig = {
-        venue: { size: [36, 44], anchor: [18, 44], symbol: '♡' },
-        town: { size: [26, 32], anchor: [13, 32], symbol: '' },
-        sight: { size: [22, 28], anchor: [11, 28], symbol: '' },
+        venue:      { size: [36, 44], anchor: [18, 44], symbol: '♡' },
+        town:       { size: [26, 32], anchor: [13, 32], symbol: '' },
+        sight:      { size: [22, 28], anchor: [11, 28], symbol: '' },
         restaurant: { size: [22, 28], anchor: [11, 28], symbol: '' }
       };
+
       placeData.forEach(p => {
         const cfg = iconConfig[p.type];
         const icon = L.divIcon({
@@ -1419,28 +2484,38 @@
           iconAnchor: cfg.anchor,
           popupAnchor: [0, -cfg.anchor[1] + 4]
         });
+
         const marker = L.marker(p.coords, { icon: icon }).addTo(weddingMap);
         markerRefs.push({ marker: marker, data: p });
       });
+
       updateMapPopups();
+
+      // Fit bounds to all markers
       const group = new L.featureGroup(markerRefs.map(m => m.marker));
       weddingMap.fitBounds(group.getBounds(), { padding: [30, 30] });
     }
+
     function updateMapPopups() {
-      const lang = currentLang || 'no';
+      const lang = (typeof currentLang !== 'undefined') ? currentLang : 'no';
       markerRefs.forEach(({ marker, data }) => {
         const label = data.labels[lang] || data.labels.no;
         const desc = data.descs[lang] || data.descs.no;
-        marker.bindPopup(`
+        const html = `
           <span class="popup-name">${data.name}</span>
           <span class="popup-label">${label}</span>
           <span class="popup-desc">${desc}</span>
-        `);
+        `;
+        marker.bindPopup(html);
       });
     }
+
+    // Initialize on load
     window.addEventListener('load', function() {
+      // Wait a tick to ensure layout is ready
       setTimeout(initMap, 100);
     });
   </script>
+
 </body>
 </html>
