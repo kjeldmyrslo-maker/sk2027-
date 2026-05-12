@@ -66,6 +66,7 @@
       gap: 1.5rem;
       padding: 2rem;
       transition: opacity 0.6s ease;
+      overflow: hidden;
     }
 
     #pw-screen.hidden {
@@ -73,23 +74,173 @@
       pointer-events: none;
     }
 
+    /* Subtle vignette/glow in center */
+    #pw-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(176,141,87,0.08) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      animation: glow-in 2s ease 0.3s forwards;
+    }
+
+    @keyframes glow-in {
+      to { opacity: 1; }
+    }
+
+    /* Corner ornaments */
+    .pw-corner {
+      position: absolute;
+      color: var(--gold);
+      font-size: 0.9rem;
+      opacity: 0;
+      animation: corner-appear 1.2s ease 0.4s forwards;
+    }
+
+    .pw-corner-tl { top: 1.5rem; left: 1.5rem; }
+    .pw-corner-tr { top: 1.5rem; right: 1.5rem; animation-delay: 0.6s; }
+    .pw-corner-bl { bottom: 1.5rem; left: 1.5rem; animation-delay: 0.8s; }
+    .pw-corner-br { bottom: 1.5rem; right: 1.5rem; animation-delay: 1.0s; }
+
+    @keyframes corner-appear {
+      from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-30deg);
+      }
+      to {
+        opacity: 0.7;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    /* Floating gold particles */
+    .pw-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .pw-particles span {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow: 0 0 6px var(--gold);
+      animation: float-particle 12s infinite ease-in-out;
+    }
+
+    .pw-particles span:nth-child(1)  { top: 15%; left: 12%; animation-delay: 1.0s; animation-duration: 10s; }
+    .pw-particles span:nth-child(2)  { top: 28%; left: 82%; animation-delay: 2.5s; animation-duration: 14s; }
+    .pw-particles span:nth-child(3)  { top: 70%; left: 18%; animation-delay: 4.0s; animation-duration: 11s; }
+    .pw-particles span:nth-child(4)  { top: 45%; left: 88%; animation-delay: 1.8s; animation-duration: 13s; }
+    .pw-particles span:nth-child(5)  { top: 85%; left: 60%; animation-delay: 3.2s; animation-duration: 12s; }
+    .pw-particles span:nth-child(6)  { top: 20%; left: 55%; animation-delay: 5.0s; animation-duration: 15s; }
+    .pw-particles span:nth-child(7)  { top: 60%; left: 75%; animation-delay: 2.0s; animation-duration: 13s; }
+    .pw-particles span:nth-child(8)  { top: 38%; left: 8%;  animation-delay: 6.0s; animation-duration: 11s; }
+    .pw-particles span:nth-child(9)  { top: 78%; left: 92%; animation-delay: 3.5s; animation-duration: 14s; }
+    .pw-particles span:nth-child(10) { top: 12%; left: 35%; animation-delay: 4.5s; animation-duration: 12s; }
+    .pw-particles span:nth-child(11) { top: 88%; left: 30%; animation-delay: 5.5s; animation-duration: 13s; }
+    .pw-particles span:nth-child(12) { top: 52%; left: 45%; animation-delay: 7.0s; animation-duration: 14s; }
+
+    @keyframes float-particle {
+      0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+      }
+      20% {
+        opacity: 0.7;
+      }
+      80% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-40px) translateX(15px);
+      }
+    }
+
+    /* Logo container */
     .pw-logo {
+      position: relative;
+      z-index: 2;
       font-family: 'Cormorant Garamond', serif;
       font-size: 4.2rem;
       font-weight: 300;
       font-style: italic;
       color: var(--gold);
       letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25em;
     }
 
-    .pw-text {
-      font-family: 'Cinzel', serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
+    /* Animated letters - slide in from sides */
+    .pw-letter {
+      display: inline-block;
+      opacity: 0;
     }
 
+    .pw-letter-s {
+      transform: translateX(-25px);
+      animation: slide-in-left 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) 1.6s forwards;
+    }
+
+    .pw-letter-k {
+      transform: translateX(25px);
+      animation: slide-in-right 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) 1.6s forwards;
+    }
+
+    @keyframes slide-in-left {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slide-in-right {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Heart wrap for pulsing */
+    .pw-heart-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: heart-pulse 3s ease-in-out 3.5s infinite;
+    }
+
+    @keyframes heart-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* Heart drawing animation */
+    .pw-heart {
+      width: 0.65em;
+      height: 0.65em;
+      stroke-width: 1.1;
+    }
+
+    .pw-heart path {
+      stroke-dasharray: 80;
+      stroke-dashoffset: 80;
+      animation: draw-heart 1.8s ease-out 1.0s forwards;
+    }
+
+    @keyframes draw-heart {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Input field - fade up after monogram */
     .pw-input {
       width: 240px;
       padding: 1rem;
@@ -101,6 +252,8 @@
       text-align: center;
       outline: none;
       transition: border-color 0.2s;
+      position: relative;
+      z-index: 2;
     }
 
     .pw-input::placeholder {
@@ -109,6 +262,23 @@
 
     .pw-input:focus {
       border-color: var(--gold-light);
+    }
+
+    .pw-fade-in {
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fade-up 1s ease 3.2s forwards;
+    }
+
+    .pw-fade-in-late {
+      animation-delay: 3.5s;
+    }
+
+    @keyframes fade-up {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     #pw-enter {
@@ -126,6 +296,8 @@
       cursor: pointer;
       transition: all 0.25s;
       line-height: 1;
+      position: relative;
+      z-index: 2;
     }
 
     #pw-enter:hover {
@@ -1322,16 +1494,36 @@
 <body>
   <!-- PASSWORD SCREEN -->
   <div id="pw-screen">
-    <div class="pw-logo">
-      S
-      <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.55em;height:0.55em;stroke-width:1.1;">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
-      K
+    <!-- Floating gold dust particles -->
+    <div class="pw-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
     </div>
-    <input type="password" id="pw-input" class="pw-input" placeholder="Password" />
-    <button id="pw-enter" aria-label="Open" onclick="openWeddingSite()">→</button>
-    <p id="pw-error" class="pw-error" data-text="wrong-password">Feil passord</p>
+
+```
+<!-- Corner ornaments -->
+<span class="pw-corner pw-corner-tl">✦</span>
+<span class="pw-corner pw-corner-tr">✦</span>
+<span class="pw-corner pw-corner-bl">✦</span>
+<span class="pw-corner pw-corner-br">✦</span>
+
+<!-- Animated monogram -->
+<div class="pw-logo">
+  <span class="pw-letter pw-letter-s">S</span>
+  <span class="pw-heart-wrap">
+    <svg class="heart-icon pw-heart" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </span>
+  <span class="pw-letter pw-letter-k">K</span>
+</div>
+
+<input type="password" id="pw-input" class="pw-input pw-fade-in" placeholder="Password" />
+<button id="pw-enter" class="pw-fade-in pw-fade-in-late" aria-label="Open" onclick="openWeddingSite()">→</button>
+<p id="pw-error" class="pw-error" data-text="wrong-password">Feil passord</p>
+```
+
   </div>
 
   <!-- LANGUAGE SWITCHER (hidden, moved to menu) -->
